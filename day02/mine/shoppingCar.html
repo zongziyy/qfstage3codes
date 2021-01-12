@@ -161,7 +161,7 @@
                 var num = 0;
                 this.shoppingCarList.forEach(item => {
                     if (item.ischecked) {
-                        num += item.goodsNum;
+                        num += item.goodsNum * 1;
                     }
                 })
                 return num;
@@ -169,7 +169,7 @@
             allGoodsNum() {
                 var num = 0;
                 this.shoppingCarList.forEach(item => {
-                    num += item.goodsNum;
+                    num += item.goodsNum * 1;
                 })
                 return num;
             },
