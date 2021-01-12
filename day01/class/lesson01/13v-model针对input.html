@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        商品数量<input v-model="goodsnum">
+        商品价格<input v-model="goodsprice">
+        小计<span>{{goodsnum*goodsprice}}</span><br/>
+        {{goodsnum}}
+    </div>
+</body>
+<script>
+     new  Vue({
+         el:"#app",
+         data:{
+             goodsnum:100,
+             goodsprice:3
+         }
+     })
+   
+
+
+
+</script>
+</html>

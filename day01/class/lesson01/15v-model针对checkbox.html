@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      请选择你的兴趣爱好
+      <input type="checkbox" value="01" v-model="hobby"/>唱
+      <input type="checkbox" value="02" v-model="hobby"/>跳
+      <input type="checkbox" value="03" v-model="hobby"/>rap
+        <button @click="submit">取值</button>
+    </div>
+</body>
+<script>
+     new  Vue({
+         el:"#app",
+         data:{
+            hobby:[]
+         },
+         methods:{
+             submit(){
+               console.log(this.hobby);
+             }
+         }
+     })
+   
+
+
+
+</script>
+</html>

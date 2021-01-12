@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+</head>
+
+<body>
+    <div id="app">
+        <p>商品价格<input type="text" id="priceInput"></p>
+        <p>商品数量<input type="text" id="numInput"></p>
+        <p>商品总价<span id="total"></span></p>
+    </div>
+</body>
+<script>
+    var num = document.getElementById("priceInput");
+    var num = document.getElementById("numInput");
+    var num = document.getElementById("total");
+
+    var goods = {
+        priceInput: 10,
+        numInput: 10,
+
+        set num(n) {
+            this.priceInput = n;
+
+        },
+        set price(n) {
+            this.numInput = n;
+        },
+
+        get total() {
+            console.log("取值")
+
+        }
+    }
+</script>
+
+</html>

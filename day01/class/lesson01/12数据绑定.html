@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据绑定</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        商品数量<input id="goodsnum">
+        商品价格<input id="goodsprice">
+        小计<span id="total"></span>
+    </div>
+
+</body>
+<script>
+    //双向绑定
+    var goodsnumInput = document.getElementById("goodsnum");
+    var goodspriceInput = document.getElementById("goodsprice");
+    var totalSpan = document.getElementById("total");
+    let goodsInfo = {
+        goodsnum: 100,
+        goodsprice: 5,
+
+        set num(n) {
+            this.goodsnum = n;
+            totalSpan.innerHTML = this.total;
+        },
+        set price(price) {
+            this.goodsprice = price;
+            totalSpan.innerHTML = this.total;
+        },
+        get total() {
+            return this.goodsprice * this.goodsnum;
+        }
+
+        // set num(n){
+        //     console.log("这里监听对象的属性的赋值");
+        // },
+        // get num(){
+        //     console.log("这里监听对象的属性的取值");
+        //     return  100;
+        // }
+    }
+    goodsnumInput.value = goodsInfo.goodsnum;
+    goodspriceInput.value = goodsInfo.goodsprice;
+    totalSpan.innerHTML = goodsInfo.goodsnum * goodsInfo.goodsprice;
+
+
+    goodsnumInput.oninput = function() {
+        goodsInfo.num = this.value;
+    }
+    goodspriceInput.oninput = function() {
+        goodsInfo.price = this.value;
+    }
+</script>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            list-style: none;
+        }
+        .header,.tr{
+            width: 200px;
+            overflow: hidden;
+        }
+        .header  li,.tr li  {
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <ul>
+            <li>编号</li>
+            <li v-for="(item,index)  in list" :key="index">
+                {{item}}下标为{{index}}
+            </li>
+        </ul>
+
+        <div class="box">
+            <ul class="header">
+                <li>编号</li>
+                <li>商品名称</li>
+            </ul>
+            <ul class="tr" v-for="item  in  goodsList" :key="item.id">
+                <li>{{item.id}}</li>
+                <li>{{item.goodsname}}</li>
+            </ul>
+       
+        </div>
+
+    </div>
+    
+
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            list: ["一", "二", "三", "四"],
+            goodsList: [{ id: 1, goodsname: "商品一" }, { id: 2, goodsname: "商品二" }, { id: 3, goodsname: "商品三" },{ id: 4, goodsname: "商品四" }]
+
+        },
+        methods: {
+
+        }
+    })
+
+
+</script>
+
+</html>

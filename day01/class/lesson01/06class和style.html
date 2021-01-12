@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class和style</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .success{
+            color:chartreuse
+        }
+        .error{
+            color:red
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+            <span class="success">正确</span>
+            <span style="color:red">错误</span><br/>
+            用户名:<input   @input="getusername"/> <span :class="usernameclass">{{usernametip}}</span>
+            <button @click="submit">提交</button>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            username:"",
+            usernameclass:"error",
+            usernameReg:/^[a-z_$][0-9a-z_$]{5,10}$/i,
+            usernametip:"长度6到10位 只能是数字字母下_$组成 不能以数字开头"
+        },
+        methods:{
+            getusername(e){//文本框键盘事件
+                // console.log(e.target.value);
+                this.username = e.target.value;
+                //取到后 实时做判断
+
+                if(this.usernameReg.test(this.username)){
+                    this.usernameclass="success";
+                    this.usernametip="√"
+                }else{
+                    this.usernameclass="error";
+                    this.usernametip="长度6到10位 只能是数字字母下_$组成 不能以数字开头"
+                }
+
+                
+            },
+            submit(){
+                alert(this.username);
+            }
+        }
+
+    })
+
+
+</script>
+</html>

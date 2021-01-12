@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <button @click="jianfa(5)">-</button> {{num}}<button v-on:click="add(6)">+</button>
+    </div>
+    
+</body>
+<script>
+    //数据驱动
+    //mvvm  model  view   View-model
+    new  Vue({
+        el:"#app",
+        data:{
+            num:10
+        },
+        methods:{
+            add:function(n){
+               this.num = this.num+n;
+            },
+            jianfa(num){
+                this.num = this.num - num;
+            }
+
+        }
+    })
+
+
+    // function  Person(){
+    //     this.username="leson"
+    // }
+    // Person.prototype.say=()=>{
+    //     alert("大家好我叫:"+this.username)
+    // }
+    // class Person {
+    //     constructor(){
+    //         this.username = "leson"
+    //     }
+    //     say(){
+    //         alert("大家好我叫:"+this.username)
+    //     }
+    // }
+
+
+
+</script>
+
+</html>

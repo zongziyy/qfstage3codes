@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        用户名:<input v-model="username"> <span>{{usernametip}}</span>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            username:"",
+            usernametip:"",
+            usernameList:["leson","lili","lulu","laowang"]
+        },
+        watch:{
+            username(value){
+                 if(this.usernameList.some(item=>item==value)){
+                    this.usernametip="该用户名已存在";
+                 }else{
+                    this.usernametip="该用户名可用";
+                 }
+
+            }
+        }
+    })
+
+</script>
+</html>

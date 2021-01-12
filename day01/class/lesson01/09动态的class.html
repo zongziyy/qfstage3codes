@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .selected{
+            color: red;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <ul>
+       <li v-for="(item,index) in list" :class="{selected:active==index}" @click="changeindex(index)">{{item}}</li>
+    </ul>
+  </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            active:0,
+            list:[1,2,3,4]
+        },
+        methods:{
+            changeindex(index){
+                this.active=index;
+            }
+        }
+
+    })
+
+
+</script>
+</html>

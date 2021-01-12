@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>计算属性</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        年龄<input v-model="userage"/>  <span>{{result}}</span>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            userage:18
+        },
+        computed:{//具有缓存 是对data的补充  
+            result(){
+                //处理事情
+               return  this.userage>=18?"已成年":"未成年"
+             }   
+        }
+    })
+</script>
+</html>

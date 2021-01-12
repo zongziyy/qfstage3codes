@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .btn{
+            border: 1px solid black;
+            border-radius: 5px;
+            height: 40px;
+            width: 100px;
+            display:inline-block;
+            text-align: center;
+            line-height: 40px;
+        }
+        .btn-danger{
+            color:red;
+        }
+        .btn-success{
+            color:green;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span :class="[btn,btn2]" @click="change">按钮</span>
+
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            flag:true,
+            btn:"btn",
+            btn2:"btn-danger"
+        },
+        methods:{
+            change(){
+                if(this.flag){
+                    this.btn2="btn-success";
+                    this.flag =false;
+                }else{
+                    this.btn2="btn-danger";
+                    this.flag =true;
+                }
+            }
+        }
+    })
+
+</script>
+</html>

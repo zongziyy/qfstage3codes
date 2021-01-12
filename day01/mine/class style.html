@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+    <style>
+        li {
+            list-style: none;
+            width: 200px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #929292;
+            color: #fff;
+        }
+
+        .selected {
+            color: #ff6600;
+            background-color: #00eeff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <ul class="list">
+            <li v-for="(item,index) in list" @click="changeColor(index)" :class="{selected:active==index}">{{item}}</li>
+        </ul>
+    </div>
+
+</body>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            active: 0,
+            list: ["a", "b", "c", "d"]
+        },
+        methods: {
+            changeColor(index) {
+                this.active = index;
+            }
+        }
+    })
+</script>
+
+</html>

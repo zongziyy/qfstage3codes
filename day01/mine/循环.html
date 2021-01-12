@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .box {
+            list-style: none;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .box li {
+            float: left;
+            height: 30px;
+            width: 300px;
+            background-color: rgb(197, 197, 197);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <ul class="box">
+            <li>商品编号</li>
+            <li>商品名称</li>
+        </ul>
+        <ul class="box" v-for="item in goodsList" :key="item.id">
+            <li>{{item.id}}</li>
+            <li>{{item.goodsName}}</li>
+        </ul>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#box",
+        data: {
+            goodsList: [
+                { id: 1, goodsName: "小米11" },
+                { id: 2, goodsName: "小米9" },
+                { id: 3, goodsName: "小米8" },
+                { id: 4, goodsName: "小米6" },
+                { id: 5, goodsName: "小米5" },
+            ]
+
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>

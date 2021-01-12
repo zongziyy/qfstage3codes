@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <span :style="{color:mycolor}">你好</span>
+        <span :style="mystyle">你好</span>
+        <span :style="mystyle1">你好</span>
+    </div>
+</body>
+<script>
+    new Vue({
+        el:"#app",
+        data:{
+            mycolor:"yellow",
+            mystyle:"color:green",
+            mystyle1:{
+                color:"gray"
+            }
+        
+        }
+    })
+
+</script>
+</html>

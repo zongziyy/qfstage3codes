@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>class和style</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        .success{
+            color:chartreuse
+        }
+        .error{
+            color:red
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+            用户名:<input  @input="changeusername"/> <span :class="usernameclass">{{usernametip}}</span>
+         
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            username:"",
+            usernameclass:"error",
+            usernamereg:/^[a-z_$][0-9a-z]{5,9}$/i,
+            usernametip:"请输入长度6到10位不能以开头的数字字母_$",
+        },
+        methods:{
+            changeusername(e){
+               // console.log(e.target.value);
+               this.username = e.target.value;
+               //正则表达式的使用
+               if(this.usernamereg.test(this.username)){
+                   this.usernameclass="success";
+                   this.usernametip="√";
+               }else{
+                   this.usernameclass="error";
+                   this.usernametip="请输入长度6到10位不能以开头的数字字母_"
+               }
+            }
+        }
+
+    })
+
+
+</script>
+</html>

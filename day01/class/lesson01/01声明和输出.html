@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app"> 
+        {{username}}今年{{userage}}岁
+        {{userage>=18?"已成年":"未成年"}}
+        {{hobby}}
+        {{list}}
+        {{obj}}
+        编号{{obj.id}}姓名{{obj.username}}
+        第一个兴趣{{hobby[0]}}
+        第一个人的名字{{list[0].username}}
+
+    </div>
+
+</body>
+<script>
+    //数据驱动
+    new  Vue({
+        el:"#app",//el作用范围
+        data:{ //表示数据(属性)
+            username:"leson",
+            "userage":17,
+            flag:true,//boolean是配合 if或者三元运算符一起使用的
+            hobby:["唱","跳","rap","打篮球"],
+            list:[{id:1,username:"leson"},{id:2,username:"lili"}],
+            obj:{id:1,username:"leson"}
+        }
+        
+
+    })
+
+
+</script>
+</html>

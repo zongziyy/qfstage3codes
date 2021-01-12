@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="reduce">时间回溯</button>
+        我叫{{name}},我{{age}}岁了
+        <button @click="add">时间穿梭</button>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            name: "ZhouDi",
+            age: 25,
+            length: "4cm",
+        },
+        methods: {
+            say() {
+                alert("我叫" + this.name + ",我" + this.age + "岁了" + "我的长度为" + this.length)
+            },
+            add() {
+                this.age++;
+            },
+            reduce() {
+                this.age--;
+            }
+        }
+    })
+</script>
+
+</html>

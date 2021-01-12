@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+    <style>
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <input type="text" name="" id="" @input="getuserName">
+        <span :class="userClass">{{userNameClassTips}}</span>
+    </div>
+
+</body>
+
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            userName: "",
+            userClass: "error",
+            userNameClassTips: "长度6-12位，由数字大小写字母_$组成",
+            userReg: /^[a-z_$][\w$]{5,9}$/i
+        },
+        methods: {
+            getuserName(e) {
+                this.userName = e.target.value;
+                if (this.userReg.test(this.userName)) {
+                    this.userClass = "success";
+                    this.userNameClassTips = "√";
+                } else {
+                    this.userClass = "error";
+                    this.userNameClassTips = "长度6-12位，由数字大小写字母_$组成";
+                }
+            }
+        }
+    })
+</script>
+
+</html>
