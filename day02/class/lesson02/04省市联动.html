@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       省份<select v-model="provinceid" @change="getprovince">
+           <option v-for="item  in  list" :value="item.id">{{item.cityname}}</option>
+       </select>
+        市<select></select>
+        区<select></select>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            provinceid:"",
+            list:[{id:1,cityname:"湖北"},{id:2,cityname:"湖南"}]
+        },
+        methods:{
+            getprovince(){
+                alert(this.provinceid);
+            }
+        }
+    })
+
+</script>
+</html>

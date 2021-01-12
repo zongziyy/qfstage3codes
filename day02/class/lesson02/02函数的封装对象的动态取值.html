@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="item">
+            用户名<input v-model="username"> <span :class="usernameclass">{{usernametip}}</span>
+        </div>
+        <div class="item">
+            密码<input v-model="userpwd"> <span :class="userpwdclass">{{userpwdtip}}</span>
+        </div>
+        <div class="item">
+            手机号<input v-model="usertel"> <span :class="usertelclass">{{userteltip}}</span>
+        </div>
+        <button @click="submit">提交</button>
+    </div>
+
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            username: "",
+            usernameclass: "error",
+            usernametip: "请输入数字字母_$组成并且不能以数字开头长度6到12位",
+            usernamereg: /^[a-z_$][0-9a-z_$]{5,11}$/i,
+
+            userpwd: "",
+            userpwdclass: "error",
+            userpwdtip: "长度6到10位的数字和字母组成",
+            userpwdreg: /^[a-z0-9]{6,10}$/i,
+
+
+            usertel: "",
+            usertelclass: "error",
+            userteltip: "请输入常用的11位手机号",
+            usertelreg: /^1[3-9][0-9]{9}$/i,
+
+        },
+        methods: {
+
+            //函数的封装
+            checkStrByReg(reg, str, classname, tip, message) {
+                if (reg.test(str)) {
+                    this[classname] = "success";//对象的属性取值问题 
+                    this[tip] = "√";
+                    return true;
+                } else {
+                    this[classname] = "error";
+                    this[tip] = message;
+                    return false;
+                }
+            },
+            //提交
+            submit() {
+
+                let usernameFlag = this.checkStrByReg(this.usernamereg, this.username, "usernameclass", "usernametip", "请输入数字字母_$组成并且不能以数字开头长度6到12位");
+
+                let userpwdFlag = this.checkStrByReg(this.userpwdreg, this.userpwd, "userpwdclass", "userpwdtip", "长度6到10位的数字和字母组成")
+
+
+                let usertelFlag = this.checkStrByReg(this.usertelreg, this.usertel, "usertelclass", "userteltip", "请输入常用的11位手机号");
+
+                if (usernameFlag && userpwdFlag && usertelFlag) {
+                    alert("全部验证通过")
+                } else {
+                    alert("请您查看红色提示");
+                }
+
+            }
+        }
+    })
+
+
+</script>
+
+</html>

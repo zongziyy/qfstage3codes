@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+       省份<select v-model="provinceinfo" @change="getprovinceinfo">
+           <option v-for="item  in  list" :value="item">{{item.cityname}}</option>
+       </select>
+        市<select v-model="cityinfo">
+            <option v-for="item  in provinceinfo['list']" :value="item">{{item.cityname}}</option>
+        </select>
+        区<select>
+            <option v-for="item  in  cityinfo['list']" :value="item.id">{{item.cityname}}</option>
+        </select>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            provinceinfo:"",
+            cityinfo:'',
+            list:[{id:1,cityname:"湖北",list:[{id:11,cityname:"武汉",list:[{id:111,cityname:"洪山"},{id:112,cityname:"江夏"}]},{id:12,cityname:"荆州",list:[{id:121,cityname:"沙市"},{id:122,cityname:"公安"}]}]},{id:2,cityname:"湖南",list:[{id:21,cityname:"长沙",list:[{id:211,cityname:"岳麓山"},{id:212,cityname:"雨花"}]},{id:22,cityname:"岳阳",list:[{id:221,cityname:"岳阳的区一"},{id:222,cityname:"岳阳的区二"}]}]}]
+        },
+        methods:{
+            getprovinceinfo(){
+                console.log(this.provinceinfo);
+            }
+        }
+       
+    })
+
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .table {
+            width: 600px;
+            overflow: hidden;
+            margin: 50px;
+        }
+
+        .table-item {
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+        .table-item input {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="table">
+            <div class="header">
+                <div class="table-item">
+                    全选 <input type="checkbox" />
+                </div>
+                <div class="table-item">
+                    商品名称
+                </div>
+                <div class="table-item">
+                    商品价格
+                </div>
+                <div class="table-item">
+                    商品数量
+                </div>
+                <div class="table-item">
+                    商品小计
+                </div>
+                <div class="table-item">
+                    操作
+                </div>
+            </div>
+
+            <div class="tr" v-for="item in list" :key="item.id">
+                <div class="table-item">
+                    <input type="checkbox" />
+                </div>
+                <div class="table-item">
+                    {{item.goodsname}}
+                </div>
+                <div class="table-item">
+                   {{(item.goodsprice*1).toFixed(2)}}
+                </div>
+                <div class="table-item">
+                    <button v-show="item.goodsnum>1">-</button>
+                    <input v-model="item.goodsnum" />
+                    <button>+</button>
+                </div>
+                <div class="table-item">
+                    {{(item.goodsnum*item.goodsprice).toFixed(2)}}
+                </div>
+                <div class="table-item">
+                    删除
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            list: [{ id: 1, goodsname: "商品名称一", goodsnum: 10, goodsprice: 100 }, { id: 2, goodsname: "商品名称二", goodsnum: 1, goodsprice: 100 }, { id: 3, goodsname: "商品名称三", goodsnum: 50, goodsprice: 100 }, { id: 4, goodsname: "商品名称四", goodsnum: 1, goodsprice: 200 }]
+        }
+
+    })
+
+
+</script>
+
+</html>

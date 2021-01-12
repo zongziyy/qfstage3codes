@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .table {
+            width: 600px;
+            overflow: hidden;
+            margin: 50px;
+        }
+
+        .table-item {
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+        .table-item input {
+            width: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <input v-model="username"/>
+        <button @click="getusername">得到username</button> -->
+        <div class="table">
+            <div class="header">
+                <div class="table-item">
+                    全选 <input type="checkbox" :checked="ischeckedall" @click="setcheckall"/>
+                    <!-- ischeckedall是多少就是多少 没有双向绑定 -->
+                </div>
+                <div class="table-item">
+                    商品名称
+                </div>
+                <div class="table-item">
+                    商品价格
+                </div>
+                <div class="table-item">
+                    商品数量
+                </div>
+                <div class="table-item">
+                    商品小计
+                </div>
+                <div class="table-item">
+                    操作
+                </div>
+            </div>
+
+            <div class="tr" v-for="item in list" :key="item.id">
+                <div class="table-item">
+                    <input type="checkbox" v-model="item.ischecked"/>
+                    <!-- 如果item.ischecked为true  就会选中 -->
+                </div>
+                <div class="table-item">
+                    {{item.goodsname}}
+                </div>
+                <div class="table-item">
+                   {{(item.goodsprice*1).toFixed(2)}}
+                </div>
+                <div class="table-item">
+                    <button v-show="item.goodsnum>1" @click="changenum(item,-1)">-</button>
+                    <!-- v-show会保留页面结构  v-if直接没有页面结构 -->
+                    <input v-model="item.goodsnum" />
+                    <button @click="changenum(item,1)">+</button>
+                </div>
+                <div class="table-item">
+                    {{(item.goodsnum*item.goodsprice).toFixed(2)}}
+                </div>
+                <div class="table-item" @click="del(item.id)">
+                    删除
+                </div>
+            </div>
+            <div class="table-footer">
+                <div class="table-item" @click="delall">批量删除</div>
+                <div class="table-item"></div>
+                <div class="table-item"></div>
+                <div class="table-item">数量{{totalnum}}</div>
+                <div class="table-item">小计{{totalprice}}</div>
+                <div class="table-item"></div>
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+
+    new Vue({
+        el: "#app",
+        data: {
+            // username:"leson",
+            ischeckedall:false,
+            list: [{ id: 1, goodsname: "商品名称一", goodsnum: 10, goodsprice: 100,ischecked:false}, { id: 2, goodsname: "商品名称二", goodsnum: 1, goodsprice: 100,ischecked:false }, { id: 3, goodsname: "商品名称三", goodsnum: 50, goodsprice: 100 ,ischecked:false}, { id: 4, goodsname: "商品名称四", goodsnum: 1, goodsprice: 200 ,ischecked:false}],
+        },
+        computed:{
+            totalnum(){
+                //选中 的数据中  goodsnum
+                let  num  = 0;
+                this.list.forEach(item=>{
+                    if(item.ischecked){
+                        num += item.goodsnum*1;
+                    }
+                })
+                return  num;
+
+            },
+            totalprice(){
+                let price = 0;
+                this.list.forEach(item=>{
+                    if(item.ischecked){
+                        price += item.goodsnum*item.goodsprice;
+                    }
+                })
+                return  price.toFixed(2);
+
+            }
+        },
+        methods:{
+            changenum(item,num){//item是一个对象  对象是唯一的   也是引用类型 占用同一块内存地址
+                item.goodsnum = item.goodsnum*1 +num;
+            },
+            setcheckall(e){
+                let  flag  = e.target.checked;//选中的状态
+                this.list.forEach(item=>item.ischecked=flag);
+            },
+            // getusername(){
+            //     alert(this.username);
+            // }
+            del(id){
+                //根据id进行删除 过滤
+                this.list = this.list.filter(item=>item.id!=id);
+            },
+            delall(){
+                //删除选中的  选中没有 指定状态的
+                this.list  = this.list.filter(item=>!item.ischecked);
+            }
+        },
+        watch:{
+          
+           list:{//深度监听
+                deep:true,
+                handler(newlist){//当list发生改变的时候  handler就会触发
+                    this.ischeckedall = newlist.every(item=>item.ischecked);
+                }
+
+           }
+        }
+
+    })
+
+
+</script>
+
+</html>

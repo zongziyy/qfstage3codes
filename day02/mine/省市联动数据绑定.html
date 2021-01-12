@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <select name="" id="province" v-model="province">
+            <option v-for="item in provinceList" :value="item">{{item.name}}</option>
+        </select>
+        <select name="" id="city" v-model="city">
+            <option v-for="item in province['list']" :value="item">{{item.name}}</option>
+        </select>
+        <select name="" id="area">
+            <option v-for="item in city['list']" :value="item.city_id">{{item.name}}</option>
+        </select>
+    </div>
+</body>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            provinceList: [{
+                    "city_id": "CH05",
+                    "name": "黑龙江",
+                    "en": "",
+                    "list": [{
+                            "city_id": "CH0501",
+                            "name": "哈尔滨",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050101",
+                                    "name": "哈尔滨",
+                                    "en": "Harbin"
+                                },
+                                {
+                                    "city_id": "CH050102",
+                                    "name": "双城",
+                                    "en": "shuangcheng"
+                                },
+                                {
+                                    "city_id": "CH050103",
+                                    "name": "呼兰",
+                                    "en": "Hulan"
+                                },
+                                {
+                                    "city_id": "CH050104",
+                                    "name": "阿城",
+                                    "en": "Acheng"
+                                },
+                                {
+                                    "city_id": "CH050105",
+                                    "name": "宾县",
+                                    "en": "binxian"
+                                },
+                                {
+                                    "city_id": "CH050106",
+                                    "name": "依兰",
+                                    "en": "yilan"
+                                },
+                                {
+                                    "city_id": "CH050107",
+                                    "name": "巴彦",
+                                    "en": "bayan"
+                                },
+                                {
+                                    "city_id": "CH050108",
+                                    "name": "通河",
+                                    "en": "Tonghe"
+                                },
+                                {
+                                    "city_id": "CH050109",
+                                    "name": "方正",
+                                    "en": "fangzheng"
+                                },
+                                {
+                                    "city_id": "CH050110",
+                                    "name": "延寿",
+                                    "en": "yanshou"
+                                },
+                                {
+                                    "city_id": "CH050111",
+                                    "name": "尚志",
+                                    "en": "shangzhi"
+                                },
+                                {
+                                    "city_id": "CH050112",
+                                    "name": "五常",
+                                    "en": "Wuchang"
+                                },
+                                {
+                                    "city_id": "CH050113",
+                                    "name": "木兰",
+                                    "en": "mulan"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0502",
+                            "name": "齐齐哈尔",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050201",
+                                    "name": "齐齐哈尔",
+                                    "en": "Qiqihar"
+                                },
+                                {
+                                    "city_id": "CH050202",
+                                    "name": "讷河",
+                                    "en": "Nehe"
+                                },
+                                {
+                                    "city_id": "CH050203",
+                                    "name": "龙江",
+                                    "en": "longjiang"
+                                },
+                                {
+                                    "city_id": "CH050204",
+                                    "name": "甘南",
+                                    "en": "gannan"
+                                },
+                                {
+                                    "city_id": "CH050205",
+                                    "name": "富裕",
+                                    "en": "Fuyu"
+                                },
+                                {
+                                    "city_id": "CH050206",
+                                    "name": "依安",
+                                    "en": "yian"
+                                },
+                                {
+                                    "city_id": "CH050207",
+                                    "name": "拜泉",
+                                    "en": "Baiquan"
+                                },
+                                {
+                                    "city_id": "CH050208",
+                                    "name": "克山",
+                                    "en": "Keshan"
+                                },
+                                {
+                                    "city_id": "CH050209",
+                                    "name": "克东",
+                                    "en": "kedong"
+                                },
+                                {
+                                    "city_id": "CH050210",
+                                    "name": "泰来",
+                                    "en": "Tailai"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0503",
+                            "name": "牡丹江",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050301",
+                                    "name": "牡丹江",
+                                    "en": "Mudanjiang"
+                                },
+                                {
+                                    "city_id": "CH050302",
+                                    "name": "海林",
+                                    "en": "Hailin"
+                                },
+                                {
+                                    "city_id": "CH050303",
+                                    "name": "穆棱",
+                                    "en": "muling"
+                                },
+                                {
+                                    "city_id": "CH050304",
+                                    "name": "林口",
+                                    "en": "linkou"
+                                },
+                                {
+                                    "city_id": "CH050305",
+                                    "name": "绥芬河",
+                                    "en": "Suifenhe"
+                                },
+                                {
+                                    "city_id": "CH050306",
+                                    "name": "宁安",
+                                    "en": "ningan"
+                                },
+                                {
+                                    "city_id": "CH050307",
+                                    "name": "东宁",
+                                    "en": "dongning"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0504",
+                            "name": "佳木斯",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050401",
+                                    "name": "佳木斯",
+                                    "en": "Jiamusi"
+                                },
+                                {
+                                    "city_id": "CH050402",
+                                    "name": "汤原",
+                                    "en": "tangyuan"
+                                },
+                                {
+                                    "city_id": "CH050403",
+                                    "name": "抚远",
+                                    "en": "Fuyuan"
+                                },
+                                {
+                                    "city_id": "CH050404",
+                                    "name": "桦川",
+                                    "en": "huachuan"
+                                },
+                                {
+                                    "city_id": "CH050405",
+                                    "name": "桦南",
+                                    "en": "huanan"
+                                },
+                                {
+                                    "city_id": "CH050406",
+                                    "name": "同江",
+                                    "en": "tongjiang"
+                                },
+                                {
+                                    "city_id": "CH050407",
+                                    "name": "富锦",
+                                    "en": "Fujin"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0505",
+                            "name": "绥化",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050501",
+                                    "name": "绥化",
+                                    "en": "Suihua"
+                                },
+                                {
+                                    "city_id": "CH050502",
+                                    "name": "肇东",
+                                    "en": "zhaodong"
+                                },
+                                {
+                                    "city_id": "CH050503",
+                                    "name": "安达",
+                                    "en": "Anda"
+                                },
+                                {
+                                    "city_id": "CH050504",
+                                    "name": "海伦",
+                                    "en": "Hailun"
+                                },
+                                {
+                                    "city_id": "CH050505",
+                                    "name": "明水",
+                                    "en": "mingshui"
+                                },
+                                {
+                                    "city_id": "CH050506",
+                                    "name": "望奎",
+                                    "en": "Wangkui"
+                                },
+                                {
+                                    "city_id": "CH050507",
+                                    "name": "兰西",
+                                    "en": "lanxi"
+                                },
+                                {
+                                    "city_id": "CH050508",
+                                    "name": "青冈",
+                                    "en": "Qinggang"
+                                },
+                                {
+                                    "city_id": "CH050509",
+                                    "name": "庆安",
+                                    "en": "qingan"
+                                },
+                                {
+                                    "city_id": "CH050510",
+                                    "name": "绥棱",
+                                    "en": "suiling"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0506",
+                            "name": "黑河",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050601",
+                                    "name": "黑河",
+                                    "en": "Heihe"
+                                },
+                                {
+                                    "city_id": "CH050602",
+                                    "name": "嫩江",
+                                    "en": "Nenjiang"
+                                },
+                                {
+                                    "city_id": "CH050603",
+                                    "name": "孙吴",
+                                    "en": "Sunwu"
+                                },
+                                {
+                                    "city_id": "CH050604",
+                                    "name": "逊克",
+                                    "en": "xunke"
+                                },
+                                {
+                                    "city_id": "CH050605",
+                                    "name": "五大连池",
+                                    "en": "wudalianchi"
+                                },
+                                {
+                                    "city_id": "CH050606",
+                                    "name": "北安",
+                                    "en": "beian"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0507",
+                            "name": "大兴安岭",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050701",
+                                    "name": "大兴安岭",
+                                    "en": "daxinganling"
+                                },
+                                {
+                                    "city_id": "CH050702",
+                                    "name": "塔河",
+                                    "en": "Tahe"
+                                },
+                                {
+                                    "city_id": "CH050703",
+                                    "name": "漠河",
+                                    "en": "mohe"
+                                },
+                                {
+                                    "city_id": "CH050704",
+                                    "name": "呼玛",
+                                    "en": "Huma"
+                                },
+                                {
+                                    "city_id": "CH050705",
+                                    "name": "呼中",
+                                    "en": "huzhong"
+                                },
+                                {
+                                    "city_id": "CH050706",
+                                    "name": "新林",
+                                    "en": "xinlin"
+                                },
+                                {
+                                    "city_id": "CH050708",
+                                    "name": "加格达奇",
+                                    "en": "jiagedaqi"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0508",
+                            "name": "伊春",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050801",
+                                    "name": "伊春",
+                                    "en": "yichun"
+                                },
+                                {
+                                    "city_id": "CH050802",
+                                    "name": "乌伊岭",
+                                    "en": "wuyiling"
+                                },
+                                {
+                                    "city_id": "CH050803",
+                                    "name": "五营",
+                                    "en": "wuying"
+                                },
+                                {
+                                    "city_id": "CH050804",
+                                    "name": "铁力",
+                                    "en": "Tieli"
+                                },
+                                {
+                                    "city_id": "CH050805",
+                                    "name": "嘉荫",
+                                    "en": "jiayin"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0509",
+                            "name": "大庆",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH050901",
+                                    "name": "大庆",
+                                    "en": "Daqing"
+                                },
+                                {
+                                    "city_id": "CH050902",
+                                    "name": "林甸",
+                                    "en": "lindian"
+                                },
+                                {
+                                    "city_id": "CH050903",
+                                    "name": "肇州",
+                                    "en": "Zhaozhou"
+                                },
+                                {
+                                    "city_id": "CH050904",
+                                    "name": "肇源",
+                                    "en": "Zhaoyuan"
+                                },
+                                {
+                                    "city_id": "CH050905",
+                                    "name": "杜尔伯特",
+                                    "en": "duerbote"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0510",
+                            "name": "七台河",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH051002",
+                                    "name": "七台河",
+                                    "en": "qitaihe"
+                                },
+                                {
+                                    "city_id": "CH051003",
+                                    "name": "勃利",
+                                    "en": "Boli"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0511",
+                            "name": "鸡西",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH051101",
+                                    "name": "鸡西",
+                                    "en": "Jixi"
+                                },
+                                {
+                                    "city_id": "CH051102",
+                                    "name": "虎林",
+                                    "en": "Hulin"
+                                },
+                                {
+                                    "city_id": "CH051103",
+                                    "name": "密山",
+                                    "en": "Mishan"
+                                },
+                                {
+                                    "city_id": "CH051104",
+                                    "name": "鸡东",
+                                    "en": "jidong"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0512",
+                            "name": "鹤岗",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH051201",
+                                    "name": "鹤岗",
+                                    "en": "hegang"
+                                },
+                                {
+                                    "city_id": "CH051202",
+                                    "name": "绥滨",
+                                    "en": "suibin"
+                                },
+                                {
+                                    "city_id": "CH051203",
+                                    "name": "萝北",
+                                    "en": "luobei"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0513",
+                            "name": "双鸭山",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH051301",
+                                    "name": "双鸭山",
+                                    "en": "shuangyashan"
+                                },
+                                {
+                                    "city_id": "CH051302",
+                                    "name": "集贤",
+                                    "en": "jixian"
+                                },
+                                {
+                                    "city_id": "CH051303",
+                                    "name": "宝清",
+                                    "en": "baoqing"
+                                },
+                                {
+                                    "city_id": "CH051304",
+                                    "name": "饶河",
+                                    "en": "raohe"
+                                },
+                                {
+                                    "city_id": "CH051305",
+                                    "name": "友谊",
+                                    "en": "youyi"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "city_id": "CH06",
+                    "name": "吉林",
+                    "en": "",
+                    "list": [{
+                            "city_id": "CH0601",
+                            "name": "长春",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060101",
+                                    "name": "长春",
+                                    "en": "Changchun"
+                                },
+                                {
+                                    "city_id": "CH060102",
+                                    "name": "农安",
+                                    "en": "nongan"
+                                },
+                                {
+                                    "city_id": "CH060103",
+                                    "name": "德惠",
+                                    "en": "Dehui"
+                                },
+                                {
+                                    "city_id": "CH060104",
+                                    "name": "九台",
+                                    "en": "Jiutai"
+                                },
+                                {
+                                    "city_id": "CH060105",
+                                    "name": "榆树",
+                                    "en": "yushu"
+                                },
+                                {
+                                    "city_id": "CH060106",
+                                    "name": "双阳",
+                                    "en": "shuangyang"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0602",
+                            "name": "吉林",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060201",
+                                    "name": "吉林",
+                                    "en": "Jilin"
+                                },
+                                {
+                                    "city_id": "CH060202",
+                                    "name": "舒兰",
+                                    "en": "shulan"
+                                },
+                                {
+                                    "city_id": "CH060203",
+                                    "name": "永吉",
+                                    "en": "yongji"
+                                },
+                                {
+                                    "city_id": "CH060204",
+                                    "name": "蛟河",
+                                    "en": "jiaohe"
+                                },
+                                {
+                                    "city_id": "CH060205",
+                                    "name": "磐石",
+                                    "en": "Panshi"
+                                },
+                                {
+                                    "city_id": "CH060206",
+                                    "name": "桦甸",
+                                    "en": "Huadian"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0603",
+                            "name": "延边",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060301",
+                                    "name": "延吉",
+                                    "en": "Yanji"
+                                },
+                                {
+                                    "city_id": "CH060302",
+                                    "name": "敦化",
+                                    "en": "dunhua"
+                                },
+                                {
+                                    "city_id": "CH060303",
+                                    "name": "安图",
+                                    "en": "antu"
+                                },
+                                {
+                                    "city_id": "CH060304",
+                                    "name": "汪清",
+                                    "en": "wangqing"
+                                },
+                                {
+                                    "city_id": "CH060305",
+                                    "name": "和龙",
+                                    "en": "helong"
+                                },
+                                {
+                                    "city_id": "CH060307",
+                                    "name": "龙井",
+                                    "en": "longjing"
+                                },
+                                {
+                                    "city_id": "CH060308",
+                                    "name": "珲春",
+                                    "en": "Hunchun"
+                                },
+                                {
+                                    "city_id": "CH060309",
+                                    "name": "图们",
+                                    "en": "tumen"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0604",
+                            "name": "四平",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060401",
+                                    "name": "四平",
+                                    "en": "Siping"
+                                },
+                                {
+                                    "city_id": "CH060402",
+                                    "name": "双辽",
+                                    "en": "shuangliao"
+                                },
+                                {
+                                    "city_id": "CH060403",
+                                    "name": "梨树",
+                                    "en": "lishu"
+                                },
+                                {
+                                    "city_id": "CH060404",
+                                    "name": "公主岭",
+                                    "en": "Gongzhuling"
+                                },
+                                {
+                                    "city_id": "CH060405",
+                                    "name": "伊通",
+                                    "en": "yitong"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0605",
+                            "name": "通化",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060501",
+                                    "name": "通化",
+                                    "en": "tonghua"
+                                },
+                                {
+                                    "city_id": "CH060502",
+                                    "name": "梅河口",
+                                    "en": "Meihekou"
+                                },
+                                {
+                                    "city_id": "CH060503",
+                                    "name": "柳河",
+                                    "en": "liuhe"
+                                },
+                                {
+                                    "city_id": "CH060504",
+                                    "name": "辉南",
+                                    "en": "huinan"
+                                },
+                                {
+                                    "city_id": "CH060505",
+                                    "name": "集安",
+                                    "en": "jian"
+                                },
+                                {
+                                    "city_id": "CH060506",
+                                    "name": "通化县",
+                                    "en": "tonghuaxian"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0606",
+                            "name": "白城",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060601",
+                                    "name": "白城",
+                                    "en": "baicheng"
+                                },
+                                {
+                                    "city_id": "CH060602",
+                                    "name": "洮南",
+                                    "en": "Taonan"
+                                },
+                                {
+                                    "city_id": "CH060603",
+                                    "name": "大安",
+                                    "en": "daan"
+                                },
+                                {
+                                    "city_id": "CH060604",
+                                    "name": "镇赉",
+                                    "en": "Zhenlai"
+                                },
+                                {
+                                    "city_id": "CH060605",
+                                    "name": "通榆",
+                                    "en": "tongyu"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0607",
+                            "name": "辽源",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060701",
+                                    "name": "辽源",
+                                    "en": "liaoyuan"
+                                },
+                                {
+                                    "city_id": "CH060702",
+                                    "name": "东丰",
+                                    "en": "Dongfeng"
+                                },
+                                {
+                                    "city_id": "CH060703",
+                                    "name": "东辽",
+                                    "en": "dongliao"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0608",
+                            "name": "松原",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060801",
+                                    "name": "松原",
+                                    "en": "songyuan"
+                                },
+                                {
+                                    "city_id": "CH060802",
+                                    "name": "乾安",
+                                    "en": "qianan"
+                                },
+                                {
+                                    "city_id": "CH060803",
+                                    "name": "前郭",
+                                    "en": "qianguo"
+                                },
+                                {
+                                    "city_id": "CH060804",
+                                    "name": "长岭",
+                                    "en": "Changling"
+                                },
+                                {
+                                    "city_id": "CH060805",
+                                    "name": "扶余",
+                                    "en": "fuyu"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0609",
+                            "name": "白山",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH060901",
+                                    "name": "白山",
+                                    "en": "baishan"
+                                },
+                                {
+                                    "city_id": "CH060902",
+                                    "name": "靖宇",
+                                    "en": "jingyu"
+                                },
+                                {
+                                    "city_id": "CH060903",
+                                    "name": "临江",
+                                    "en": "Linjiang"
+                                },
+                                {
+                                    "city_id": "CH060904",
+                                    "name": "东岗",
+                                    "en": "donggang"
+                                },
+                                {
+                                    "city_id": "CH060905",
+                                    "name": "长白",
+                                    "en": "Changbai"
+                                },
+                                {
+                                    "city_id": "CH060906",
+                                    "name": "抚松",
+                                    "en": "fusong"
+                                },
+                                {
+                                    "city_id": "CH060907",
+                                    "name": "江源",
+                                    "en": "jiangyuan"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "city_id": "CH07",
+                    "name": "辽宁",
+                    "en": "",
+                    "list": [{
+                            "city_id": "CH0701",
+                            "name": "沈阳",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070101",
+                                    "name": "沈阳",
+                                    "en": "shenyang"
+                                },
+                                {
+                                    "city_id": "CH070103",
+                                    "name": "辽中",
+                                    "en": "Liaozhong"
+                                },
+                                {
+                                    "city_id": "CH070104",
+                                    "name": "康平",
+                                    "en": "kangping"
+                                },
+                                {
+                                    "city_id": "CH070105",
+                                    "name": "法库",
+                                    "en": "faku"
+                                },
+                                {
+                                    "city_id": "CH070106",
+                                    "name": "新民",
+                                    "en": "xinmin"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0702",
+                            "name": "大连",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070201",
+                                    "name": "大连",
+                                    "en": "Dalian"
+                                },
+                                {
+                                    "city_id": "CH070202",
+                                    "name": "瓦房店",
+                                    "en": "wafangdian"
+                                },
+                                {
+                                    "city_id": "CH070203",
+                                    "name": "金州",
+                                    "en": "Jinzhou"
+                                },
+                                {
+                                    "city_id": "CH070204",
+                                    "name": "普兰店",
+                                    "en": "pulandian"
+                                },
+                                {
+                                    "city_id": "CH070205",
+                                    "name": "旅顺",
+                                    "en": "Lushun"
+                                },
+                                {
+                                    "city_id": "CH070206",
+                                    "name": "长海",
+                                    "en": "changhai"
+                                },
+                                {
+                                    "city_id": "CH070207",
+                                    "name": "庄河",
+                                    "en": "zhuanghe"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0703",
+                            "name": "鞍山",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070301",
+                                    "name": "鞍山",
+                                    "en": "Anshan"
+                                },
+                                {
+                                    "city_id": "CH070302",
+                                    "name": "台安",
+                                    "en": "taian"
+                                },
+                                {
+                                    "city_id": "CH070303",
+                                    "name": "岫岩",
+                                    "en": "xiuyan"
+                                },
+                                {
+                                    "city_id": "CH070304",
+                                    "name": "海城",
+                                    "en": "Haicheng"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0704",
+                            "name": "抚顺",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070401",
+                                    "name": "抚顺",
+                                    "en": "Fushun"
+                                },
+                                {
+                                    "city_id": "CH070402",
+                                    "name": "新宾",
+                                    "en": "xinbin"
+                                },
+                                {
+                                    "city_id": "CH070403",
+                                    "name": "清原",
+                                    "en": "Qingyuan"
+                                },
+                                {
+                                    "city_id": "CH070404",
+                                    "name": "章党",
+                                    "en": "zhangdang"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0705",
+                            "name": "本溪",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070501",
+                                    "name": "本溪",
+                                    "en": "Benxi"
+                                },
+                                {
+                                    "city_id": "CH070502",
+                                    "name": "本溪县",
+                                    "en": "benxixian"
+                                },
+                                {
+                                    "city_id": "CH070504",
+                                    "name": "桓仁",
+                                    "en": "Huanren"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0706",
+                            "name": "丹东",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070601",
+                                    "name": "丹东",
+                                    "en": "Dandong"
+                                },
+                                {
+                                    "city_id": "CH070602",
+                                    "name": "凤城",
+                                    "en": "fengcheng"
+                                },
+                                {
+                                    "city_id": "CH070603",
+                                    "name": "宽甸",
+                                    "en": "Kuandian"
+                                },
+                                {
+                                    "city_id": "CH070604",
+                                    "name": "东港",
+                                    "en": "donggang"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0707",
+                            "name": "锦州",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070701",
+                                    "name": "锦州",
+                                    "en": "Jinzhou"
+                                },
+                                {
+                                    "city_id": "CH070702",
+                                    "name": "凌海",
+                                    "en": "linghai"
+                                },
+                                {
+                                    "city_id": "CH070704",
+                                    "name": "义县",
+                                    "en": "yixian"
+                                },
+                                {
+                                    "city_id": "CH070705",
+                                    "name": "黑山",
+                                    "en": "heishan"
+                                },
+                                {
+                                    "city_id": "CH070706",
+                                    "name": "北镇",
+                                    "en": "beizhen"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0708",
+                            "name": "营口",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070801",
+                                    "name": "营口",
+                                    "en": "Yingkou"
+                                },
+                                {
+                                    "city_id": "CH070802",
+                                    "name": "大石桥",
+                                    "en": "dashiqiao"
+                                },
+                                {
+                                    "city_id": "CH070803",
+                                    "name": "盖州",
+                                    "en": "gaizhou"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0709",
+                            "name": "阜新",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH070901",
+                                    "name": "阜新",
+                                    "en": "Fuxin"
+                                },
+                                {
+                                    "city_id": "CH070902",
+                                    "name": "彰武",
+                                    "en": "zhangwu"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0710",
+                            "name": "辽阳",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH071001",
+                                    "name": "辽阳",
+                                    "en": "Liaoyang"
+                                },
+                                {
+                                    "city_id": "CH071002",
+                                    "name": "辽阳县",
+                                    "en": "liaoyangxian"
+                                },
+                                {
+                                    "city_id": "CH071003",
+                                    "name": "灯塔",
+                                    "en": "dengta"
+                                },
+                                {
+                                    "city_id": "CH071004",
+                                    "name": "弓长岭",
+                                    "en": "gongchangling"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0711",
+                            "name": "铁岭",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH071101",
+                                    "name": "铁岭",
+                                    "en": "Tieling"
+                                },
+                                {
+                                    "city_id": "CH071102",
+                                    "name": "开原",
+                                    "en": "kaiyuan"
+                                },
+                                {
+                                    "city_id": "CH071103",
+                                    "name": "昌图",
+                                    "en": "Changtu"
+                                },
+                                {
+                                    "city_id": "CH071104",
+                                    "name": "西丰",
+                                    "en": "xifeng"
+                                },
+                                {
+                                    "city_id": "CH071105",
+                                    "name": "调兵山",
+                                    "en": "diaobingshan"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0712",
+                            "name": "朝阳",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH071201",
+                                    "name": "朝阳",
+                                    "en": "chaoyang"
+                                },
+                                {
+                                    "city_id": "CH071203",
+                                    "name": "凌源",
+                                    "en": "lingyuan"
+                                },
+                                {
+                                    "city_id": "CH071204",
+                                    "name": "喀左",
+                                    "en": "kazuo"
+                                },
+                                {
+                                    "city_id": "CH071205",
+                                    "name": "北票",
+                                    "en": "Beipiao"
+                                },
+                                {
+                                    "city_id": "CH071207",
+                                    "name": "建平县",
+                                    "en": "jianpingxian"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0713",
+                            "name": "盘锦",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH071301",
+                                    "name": "盘锦",
+                                    "en": "panjin"
+                                },
+                                {
+                                    "city_id": "CH071302",
+                                    "name": "大洼",
+                                    "en": "dawa"
+                                },
+                                {
+                                    "city_id": "CH071303",
+                                    "name": "盘山",
+                                    "en": "panshan"
+                                }
+                            ]
+                        },
+                        {
+                            "city_id": "CH0714",
+                            "name": "葫芦岛",
+                            "en": "",
+                            "list": [{
+                                    "city_id": "CH071401",
+                                    "name": "葫芦岛",
+                                    "en": "huludao"
+                                },
+                                {
+                                    "city_id": "CH071402",
+                                    "name": "建昌",
+                                    "en": "jianchang"
+                                },
+                                {
+                                    "city_id": "CH071403",
+                                    "name": "绥中",
+                                    "en": "suizhong"
+                                },
+                                {
+                                    "city_id": "CH071404",
+                                    "name": "兴城",
+                                    "en": "xingcheng"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ],
+            province: "黑龙江",
+            city: "",
+        }
+    })
+</script>
+
+</html>
