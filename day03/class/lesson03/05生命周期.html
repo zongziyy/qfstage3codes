@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        
+    </div>
+    
+</body>
+<script>
+   var  vm= new  Vue({
+       data:{
+        userage:18
+       },
+        beforeCreate(){//钩子函数
+           //this.say()//这里会报错  this没有
+        },
+        created(){ //这里可以使用this  数据请求
+            this.username="leson";
+        },
+        beforeMount(){//页面结构加载完成以前
+
+        },
+        mounted(){//页面结构完成
+            //写dom操作  定时器
+            //事件  window.onscroll
+         
+
+        },
+        methods:{
+            say(){
+                alert("hello")
+            },
+            add(){
+                this.userage++;
+            }
+
+        },
+        updated(){
+            console.log(this.userage);
+        },
+        template:`<div>我是模板  {{username}} {{userage}}<button @click="add">+</button></div>`,
+
+    }).$mount("#app")
+
+</script>
+</html>

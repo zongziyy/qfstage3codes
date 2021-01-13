@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .userlist{
+            width: 400px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .userlist-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="userlist">
+            <div class="userlist-tr">
+                <div class="userlist-item">编号</div>
+                <div class="userlist-item">姓名</div>
+                <div class="userlist-item">密码</div>
+                <div class="userlist-item">操作</div>
+            </div>
+            <div class="userlist-tr" v-for="item in list" :key="item.id">
+                <div class="userlist-item">{{item.id}}</div>
+                <div class="userlist-item">{{item.username}}</div>
+                <div class="userlist-item">{{item.userpwd}}</div>
+                <div class="userlist-item">删除</div>
+            </div>
+         
+        </div>
+
+    </div>
+    
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            list:[],//有个数据
+        },
+        created(){//这个里面就可以使用this  
+            $.ajax({
+                type:"get",
+                url:"http://localhost:4567/userinfos",
+                dataType:"json"
+            }).then(res=>{
+                this.list =res;
+            })
+        }
+    })
+
+</script>
+</html>

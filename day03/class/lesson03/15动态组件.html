@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+        }
+
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .menu {
+            width: 100%;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            display: flex;
+        }
+
+        .menu .menu-item {
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            color: burlywood;
+            text-align: center;
+        }
+
+        .menu .menu-item.selected {
+            background-color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <component :is="com"></component>
+        <div class="menu">
+            <div class="menu-item" v-for="item in menulist" :class="{selected:item.id==selecteindex}" @click="changeindex(item)">
+                {{item.menuname}}
+            </div>
+            <!-- 当循环的时候 这个数据的编号 和设定选中的编号一样的时候 才有样式 -->
+        </div>
+
+    </div>
+
+</body>
+<script src="components/mymenu.js"></script>
+<script>
+    let list = {
+        template: "<div>我是列表页面</div>"
+    }
+    let mine = {
+        template: "<div>个人页面</div>"
+    }
+
+    new Vue({
+        el: "#app",
+        data: {
+            com: "login",
+            selecteindex:1,
+            menulist: [{
+                id: 1,
+                menuname: "登录页面",
+                com:"login"
+            }, {
+                id: 2,
+                menuname: "列表页面",
+                com:"list"
+            }, {
+                id: 3,
+                menuname: "个人页面",
+                com:"mine"
+            }]
+
+        },
+        methods:{
+            changeindex(item){
+                this.selecteindex =item.id;
+                this.com =item.com;
+            }
+        },
+        components: {
+            login: {
+                template: "<div>我是登录页面</div>"
+            },
+            list,
+            mine
+        }
+
+    })
+
+
+</script>
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .userlist{
+            width: 400px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .userlist-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="userlist">
+            <div class="userlist-tr">
+                <div class="userlist-item">编号</div>
+                <div class="userlist-item">姓名</div>
+                <div class="userlist-item">密码</div>
+                <div class="userlist-item">操作</div>
+            </div>
+            <div class="userlist-tr">
+                <div class="userlist-item">编号</div>
+                <div class="userlist-item">姓名</div>
+                <div class="userlist-item">密码</div>
+                <div class="userlist-item">操作</div>
+            </div>
+         
+        </div>
+
+    </div>
+    
+</body>
+<script>
+ 
+
+
+    new  Vue({
+        el:"#app",
+        data:{
+            list:[],//有个数据
+        },
+        created(){//这个里面就可以使用this  
+            let res=""
+            let  xhr = new  XMLHttpRequest();
+            xhr.open("get","http://localhost:4567/userinfos");
+            xhr.onreadystatechange=()=>{
+                console.log(xhr.readyState);
+                if(xhr.readyState==4 && xhr.status==200){
+                          res = xhr.responseText;
+                          alert(res);
+                          show(res)
+                }
+            }
+            xhr.send()
+
+            function show(res){
+                //想怎么写都行
+            }
+          
+
+
+    
+
+
+        }
+       
+
+    })
+
+</script>
+</html>

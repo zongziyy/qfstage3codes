@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/components.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <component :is="com" class="main"></component>
+        <menus></menus>
+    </div>
+
+</body>
+<template id="index">
+    <div class="main">我是主页</div>
+</template>
+<template id="list">
+    <div>我是列表页</div>
+</template>
+<template id="shoppingcar">
+    <div>我是购物车</div>
+</template>
+<template id="mine">
+    <div>我是个人页</div>
+</template>
+<template id="menus">
+    <div class="foot">
+        <li v-for="item in menulist" @click="changeIndex(item)" :class="{selected:selectIndex==item.id}">{{item.menuName}}</li>
+    </div>
+</template>
+<script src="components/index.js"></script>
+<script src="components/list.js"></script>
+<script src="components/shoppingCar.js"></script>
+<script src="components/mine.js"></script>
+<script src="components/menu.js"></script>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            selectIndex: 1,
+            com: "index"
+        },
+        components: {
+            index,
+            list,
+            shoppingcar,
+            mine,
+            menus
+        },
+        mounted() {
+            window.onhashchange = () => {
+                let hash = window.location.hash.slice(1);
+                this.com = hash;
+            }
+
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body,html{
+            width: 100%;
+            height: 100%;
+        }
+        #app{
+            width: 100%;
+            height: 100%;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        <mycontent></mycontent>
+        <mymenu></mymenu>
+    </div>
+    
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        components:{
+            "mycontent":{
+                template:"<div class='content'>内容</div>"
+
+            },
+            "mymenu":{
+                template:`<div class="muen">菜单</div>`
+            }
+        }
+    })
+
+
+</script>
+</html>

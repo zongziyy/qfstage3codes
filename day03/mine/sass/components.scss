@@ -1,0 +1,41 @@
+html,
+body {
+    height: 100%;
+    width: 100%;
+
+    #app {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .main {
+            flex: 1;
+            overflow-y: scroll;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .foot {
+            flex-shrink: 0;
+            height: 60px;
+            line-height: 60px;
+            font-size: 18px;
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+
+            li {
+                width: 25%;
+                text-align: center;
+            }
+
+            .selected {
+                background-color: #464646;
+                color: #fff;
+            }
+        }
+    }
+
+
+}

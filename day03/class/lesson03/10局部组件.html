@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="node_modules/axios/dist/axios.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .list{
+            width: 400px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .tr-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <list></list>
+    </div>
+    <div id="app2">
+        <list></list>
+    </div>
+    
+</body>
+<template id="mylist">
+    <div class="list">
+        <div class="list-tr">
+            <div class="tr-item">编号</div>
+            <div class="tr-item">姓名</div>
+            <div class="tr-item">密码</div>
+            <div class="tr-item">操作</div>
+        </div>
+        <div class="list-tr" v-for="item  in list">
+            <div class="tr-item">{{item.id}}</div>
+            <div class="tr-item">{{item.username}}</div>
+            <div class="tr-item">{{item.userpwd}}</div>
+            <div class="tr-item">删除</div>
+        </div>
+    </div>
+
+</template>
+<script>
+
+
+
+    new  Vue({
+        el:"#app",
+        components:{
+        "list":{//全局组件
+        template:`#mylist`,
+        data(){//函数
+            return  {list:[]}//对象  对象中有个属性 list  是一个集合
+        },
+        created(){
+            axios({
+                method:"get",
+                url:"http://192.168.60.158:4567/userinfos"
+            }).then(res=>{
+                console.log(res.data);
+                this.list = res.data;
+            })
+        }
+    }
+        }
+    })
+    new  Vue({
+        el:"#app2",
+        components:{
+            "list":{//局部组件
+                template:`<div>我是list组件</div>`
+            }
+        }
+    })
+
+</script>
+</html>

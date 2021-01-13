@@ -1,0 +1,3 @@
+let mine = {
+    template: "#mine"
+}
