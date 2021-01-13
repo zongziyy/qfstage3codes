@@ -1,0 +1,68 @@
+{
+    "shoppingCar":[
+        {
+            "id": 1,
+            "userphone": "17371420646",
+            "gid": "10037",
+            "goodsNum": "1",
+            "buyColor": "亮银版",
+            "goodsPrice": "1899.00",
+            "buyEdition": "8GB+256GB",
+            "goodsName": "小米6A",
+            "goodsImg": "./images/phonepic1.jpg",
+            "ischecked":false
+        },
+        {
+            "id": 2,
+            "userphone": "17371420646",
+            "gid": "10037",
+            "goodsNum": "2",
+            "buyColor": "透明版",
+            "goodsPrice": "1599.00",
+            "buyEdition": "6GB+128GB",
+            "goodsName": "小米6A",
+            "goodsImg": "./images/phonepic2.jpg",
+            "total": 3198,
+            "ischecked":false
+        },
+        {
+            "id": 3,
+            "userphone": "17371420646",
+            "gid": "10034",
+            "goodsNum": "1",
+            "buyColor": "砂石黑",
+            "goodsPrice": "1799.00",
+            "buyEdition": "6GB+128GB",
+            "goodsName": "小米4A",
+            "goodsImg": "./images/phonepic3.jpg",
+            "total": 1799,
+            "ischecked":false
+        },
+        {
+            "id":4,
+            "userphone": "17371420646",
+            "gid": "10036",
+            "goodsNum": "1",
+            "buyColor": "黑色",
+            "goodsPrice": "3779.00",
+            "buyEdition": "8GB+256GB",
+            "goodsName": "小米5A",
+            "goodsImg": "./images/phonepic4.jpg",
+            "total": 3779,
+            "ischecked":false
+        },
+        {
+            "id": 5,
+            "userphone": "17371420646",
+            "gid": "10036",
+            "goodsNum": "1",
+            "buyColor": "烟紫色(素皮)",
+            "goodsPrice": "3579.00",
+            "buyEdition": "8GB+128GB",
+            "goodsName": "小米5A",
+            "goodsImg": "./images/phonepic5.jpg",
+            "total": 3579,
+            "ischecked":false
+        }
+    ]
+}

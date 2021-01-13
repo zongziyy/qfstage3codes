@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2170186_2a5pwon7jz4.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/shoppingCar.css">
+</head>
+
+<body>
+
+    <div id="app">
+        <div class="addGoods">
+        </div>
+        <div class="cart-goods-list w">
+            <div class="list-head cl">
+                <div class="col col-check">
+                    <input type="checkbox" class="check-all" id="check-all" hidden @click="changecheckboxes" :checked="checkAll">
+                    <label for="check-all">
+                        <i class="iconfont icon-duigou"></i>
+                    </label>
+                    <span> 全选</span>
+                </div>
+                <div class="col col-img">&nbsp;</div>
+                <div class="col col-name">商品名称</div>
+                <div class="col col-price">单价</div>
+                <div class="col col-num">数量</div>
+                <div class="col col-total">小计</div>
+                <div class="col col-action">操作</div>
+            </div>
+            <ul class="goodsList" v-for="item in shoppingCarList">
+                <li>
+                    <div class="col col-check">
+                        <input type="checkbox" class="check-one" :id="item.id" hidden v-model="item.ischecked">
+                        <label :for="item.id">
+                            <i class="iconfont icon-duigou"></i>
+                        </label>
+                    </div>
+                    <div class="col col-img">
+                        <img :src="item.goodsImg" alt="" class="goodsImg">
+                    </div>
+                    <div class="col col-name">
+                        <h3 class="goodsName">{{item.goodsName}} {{item.buyEdition}} {{item.buyColor}}</h3>
+                    </div>
+                    <div class="col col-price"><span>{{item.goodsPrice}}元</span></div>
+                    <div class="col col-num">
+                        <div class="numberChange">
+                            <span class="numAdd" @click="changeNum(item,-1)">-</span><input type="text" class="goodsNum" v-model="item.goodsNum" @change="changeInpNum(item)"><span class="numRemove" @click="changeNum(item,+1)">+</span>
+                        </div>
+                    </div>
+                    <div class="col col-total">{{item.goodsNum*item.goodsPrice}}元</div>
+                    <div class="col col-action">
+                        <a href="javascript:;">
+                            <i class="iconfont icon-cha" @click="del(item)"></i>
+                        </a>
+                    </div>
+                </li>
+            </ul>
+            <div class="cart-bar cl w">
+                <div class="section-left">
+                    <a href="javascript:;" class="delete-all" @click="delAll">删除</a>
+                    <a href="javascript:;" @click="addGoods">继续购物</a><span class="selectGoods">共{{allGoodsNum}}件商品，已选择{{selectNum}}件</span>
+                </div>
+                <div class="section-right">
+                    <a href="javascript:;" class="jiesuan">去结算</a>
+                    <p class="total-all">合计：<span>{{priceTotal}}</span>元</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            checkAll: false,
+            shoppingCarList: [],
+        },
+        created() {
+            axios({
+                method: "get",
+                url: "http://localhost:3333/shoppingCar"
+            }).then(res => {
+                this.shoppingCarList = res.data;
+            })
+        },
+        methods: {
+            changeNum(item, num) {
+                if (num < 0) {
+                    if (item.goodsNum <= 1) {
+                        return false;
+                    }
+                }
+                item.goodsNum = item.goodsNum * 1 + num;
+            },
+            changecheckboxes(e) {
+                if (e.target.checked) {
+                    this.shoppingCarList.forEach(item => item.ischecked = true)
+                } else {
+                    this.shoppingCarList.forEach(item => item.ischecked = false)
+                }
+            },
+            del(item) {
+                this.shoppingCarList = this.shoppingCarList.filter(ele => ele != item)
+            },
+            delAll() {
+                this.shoppingCarList = this.shoppingCarList.filter(item => !item.ischecked)
+            },
+            changeInpNum(item) {
+                item.goodsNum < 1 ? item.goodsNum = 1 : item.goodsNum;
+            },
+            addGoods() {
+
+            }
+        },
+        computed: {
+            priceTotal() {
+                var sum = 0;
+                this.shoppingCarList.forEach(item => {
+                    if (item.ischecked) {
+                        sum += item.goodsPrice * item.goodsNum;
+                    }
+                })
+                return sum;
+            },
+            selectNum() {
+                var num = 0;
+                this.shoppingCarList.forEach(item => {
+                    if (item.ischecked) {
+                        num += item.goodsNum * 1;
+                    }
+                })
+                return num;
+            },
+            allGoodsNum() {
+                var num = 0;
+                this.shoppingCarList.forEach(item => {
+                    num += item.goodsNum * 1;
+                })
+                return num;
+            },
+        },
+        watch: {
+            shoppingCarList: {
+                deep: true,
+                handler(newList) {
+                    // console.log(newList);
+                    if (newList.every(item => item.ischecked)) {
+                        this.checkAll = true;
+                    } else {
+                        this.checkAll = false;
+                    }
+                }
+            }
+        }
+    })
+</script>
+
+</html>

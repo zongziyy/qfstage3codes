@@ -1,0 +1,21 @@
+{
+  "company": [
+    {
+      "id": 2,
+      "name": "周迪",
+      "age": 38,
+      "zhiwu": "打工仔"
+    },
+    {
+      "id": 3,
+      "name": "杨彩悦",
+      "age": 18,
+      "zhiwu": "清洁工"
+    },
+    {
+      "name": "zhoudi",
+      "zhiwei": "shaodi",
+      "id": 4
+    }
+  ]
+}
