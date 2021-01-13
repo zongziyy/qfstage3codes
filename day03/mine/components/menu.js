@@ -2,7 +2,7 @@ let menus = {
     template: "#menus",
     data() {
         return {
-
+            selectIndex: 1,
             menulist: [{
                 id: 1,
                 menuName: '首页',
@@ -23,7 +23,7 @@ let menus = {
         }
     },
     methods: {
-        changeIndex = (item) => {
+        changeIndex(item) {
             this.selectIndex = item.id
         }
     }
