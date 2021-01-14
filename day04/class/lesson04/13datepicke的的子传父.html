@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间选择</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .datepicker {
+            width: 200px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+            /* overflow: hidden; */
+        }
+
+        .datepicker-content {
+            height: 320px;
+            width: 280px;
+            position: absolute;
+            left: 0;
+            top: 30px;
+        }
+
+        .datepicker-header {
+            width: 280px;
+            height: 40px;
+        }
+
+        .datepicker-header div {
+            float: left;
+            background-color: black;
+            color: burlywood;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .prev,
+        .next {
+            width: 50px;
+        }
+
+        .middle {
+            width: 180px;
+        }
+
+        .datepicker-item {
+            float: left;
+            background-color: black;
+            color: burlywood;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            width: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        开始时间<datepicker @returnvalue="getStart"></datepicker>
+        结束时间<datepicker @returnvalue="getEnd"></datepicker>
+        <button @click="submit">提交</button>
+    </div>
+</body>
+<template id="datepicker">
+    <div class="datepicker">
+        <input @click.stop="changeFlag" v-model="value" />
+        <!-- stop叫做事件修饰符 阻止事件传递 -->
+        <div class="datepicker-content" v-if="flag">
+            <div class="datepicker-header">
+                <div class="prev" @click.stop="prev">上</div>
+                <div class="middle">{{date.dateFormate("yyyy年mm月")}}</div>
+                <div class="next" @click.stop="next">下</div>
+            </div>
+            <div class="datepicker-th">
+                <div class="datepicker-item">一</div>
+                <div class="datepicker-item">二</div>
+                <div class="datepicker-item">三</div>
+                <div class="datepicker-item">四</div>
+                <div class="datepicker-item">五</div>
+                <div class="datepicker-item">六</div>
+                <div class="datepicker-item">日</div>
+            </div>
+            <div class="datepicker-box">
+                <div class="datepicker-item" style="background-color:#cdcdcd;" v-for="item  in  prevList" @click="getDate(-1,item)">{{item}}</div>
+                <div class="datepicker-item" v-for="i  in  days" @click="getDate(0,i)">{{i}}</div>
+                <div class="datepicker-item" v-for="j  in  nextDays" @click="getDate(1,j)">{{j}}</div>
+            </div>
+
+        </div>
+    </div>
+
+</template>
+<script>
+    //时间格式刷
+    Date.prototype.dateFormate = function(str) {
+        let year = this.getFullYear();
+        let month = this.getMonth() + 1;
+        let day = this.getDate();
+        return str.replace("yyyy", year).replace("mm", month).replace("dd", day);
+    }
+    //     let date  = new Date();
+    //   console.log(  date.dateFormate("yyyy年mm月"))
+
+    //根据时间 获取该时间当前月有多少天
+    Date.prototype.getDays = function() {
+        //this 就是调用getDays的时间对象
+        let tempDate = new Date("2000-01-01");
+        tempDate.setFullYear(this.getFullYear()); //2021-01-01
+        tempDate.setMonth(this.getMonth() + 1) //2021-02-01
+        tempDate.setDate(0); //2021-01-31
+        return tempDate.getDate(); //返回设置时间的天数
+    }
+    //根据时间  获取该时间 上个月有多少天
+    Date.prototype.getPrevDays = function() {
+        let tempDate = new Date("2000-01-01");
+        tempDate.setFullYear(this.getFullYear()); //2021-01-01
+        tempDate.setMonth(this.getMonth()); //2021-01-01
+        tempDate.setDate(0);
+        return tempDate.getDate();
+    }
+    //根据时间  获取该时间的第一天是星期几
+    Date.prototype.getWeek = function() {
+        let tempDate = new Date("2000-01-01");
+        tempDate.setFullYear(this.getFullYear()); //2021-01-01
+        tempDate.setMonth(this.getMonth());
+        return tempDate.getDay() == 0 ? 7 : tempDate.getDay();
+    }
+
+
+
+
+    let datepicker = {
+        data() {
+            return {
+                flag: false,
+                value: "",
+                date: new Date(), //系统的当前的时间
+            }
+        },
+        created() {
+            this.init();
+        },
+        methods: {
+            changeFlag() {
+                this.flag = true;
+                //window.event.stopPropagation();
+            },
+            prev() {
+                let month = this.date.getMonth();
+                this.date = new Date(this.date.setMonth(month - 1));
+                this.init();
+            },
+            next() {
+                let month = this.date.getMonth();
+                this.date = new Date(this.date.setMonth(month + 1));
+                this.init();
+            },
+            init() {
+                this.flag = false
+                this.days = this.date.getDays(); //当前月有多少天
+                let end = this.date.getPrevDays(); //上一个月有多少天
+                let start = end - this.date.getWeek() + 2; //31-5+2 = 28
+                this.prevList = []; //上一个月要显示的
+                for (var i = start; i <= end; i++) {
+                    this.prevList.push(i);
+                }
+                this.nextDays = 42 - this.days - this.date.getWeek() + 1;
+            },
+            getDate(mm, dd) {
+                let year = this.date.getFullYear(); //2021  //2021
+                let month = this.date.getMonth() + mm; //0   //0-1    -1
+                let day = dd; //8 //30
+                this.value = new Date(year, month, day).dateFormate("yyyy-mm-dd") //2021  -1  30
+                this.$emit("returnvalue", this.value);
+            }
+        },
+        updated() {
+            document.onclick = () => {
+                this.flag = false;
+            }
+        },
+        template: "#datepicker"
+    }
+
+    new Vue({
+        el: "#app",
+        data: {
+            start: "",
+            end: ""
+        },
+        components: {
+            datepicker
+        },
+        methods: {
+            getStart(start) { //给子组件使用
+                this.start = start;
+
+            },
+            getEnd(end) {
+                this.end = end;
+
+            },
+            submit() {
+                console.log("开始时间为" + this.start + "结束时间为:" + this.end);
+
+            }
+        }
+    })
+</script>
+
+</html>

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .page {
+            width: 500px;
+            height: 40px;
+        }
+
+        .page div {
+            float: left;
+        }
+
+        .prev,
+        .next {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+            margin-left: 5px;
+        }
+
+        .item {
+            float: left;
+            margin-left: 5px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+        .item.selected {
+            background-color: crimson;
+        }
+
+        .disabled {
+            background-color: #cdcdcd;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="page">
+        <!-- <div class="prev">上一页</div>
+      <div class="content">
+          <div class="item selected">1</div>
+          <div class="item">2</div>
+          <div class="item">3</div>
+          <div class="item">4</div>
+          <div class="item">5</div>
+      </div>
+      <div class="next">下一页</div> -->
+    </div>
+</body>
+<script>
+    function Page(el) {
+        this.el = document.querySelector(el);
+        this.option = {
+            total: 100,
+            shownum: 10,//每页显示五条
+            showpage: 5,//连续出现的页码数 
+            pageindex: 1,//默认显示第一页数据
+        }
+        this.create();//创建页面结构
+        this.init();//根据数据渲染页面
+    }
+
+    Page.prototype.init = function () {
+        let that = this;
+        this.content.innerHTML = "";
+        this.start = 1;
+        this.end = this.option.showpage;//5
+        this.middleNum = Math.floor(this.option.showpage / 2);//2
+        this.countPage = Math.ceil(this.option.total / this.option.shownum);//总页码数
+
+
+        //中间的判断
+        if (this.option.pageindex > this.middleNum) {
+            this.start = this.option.pageindex - this.middleNum;//4-2
+            this.end = this.option.pageindex + this.middleNum;//4+2
+        }
+
+        //尾部的判断
+        if (this.option.pageindex > this.countPage - this.middleNum) {//10-2
+            this.end = this.countPage;//10
+            this.start = this.countPage - 2 * this.middleNum;//10-4 = 6
+        }
+
+        this.start = this.start < 1 ? 1 : this.start;
+
+
+        for (let i = this.start; i <= this.end; i++) {//let构建块级作用域
+            let item = document.createElement("div");
+            if (i == this.option.pageindex) {
+                item.className = "item selected";
+            } else {
+                item.className = "item";
+            }
+            item.innerHTML = i;
+            this.content.appendChild(item);
+            item.onclick = function () {
+                that.option.pageindex = i;
+                that.init();
+            }
+        }
+
+
+        this.prev.onclick = null;
+        this.next.onclick = null;
+        this.prev.className = "prev disabled";
+        this.next.className = "next disabled";
+
+        if (this.option.pageindex != 1) {
+            this.prev.className="prev";
+            this.prev.onclick = function () {
+                that.option.pageindex--;
+                that.init();
+            }
+        }
+        if(this.option.pageindex != this.countPage){
+            this.next.className="next";
+            this.next.onclick = function () {
+                that.option.pageindex++;
+                that.init();
+            }
+        }
+
+
+
+        // this.next.onclick = function(){
+        //     that.option.pageindex++;
+        //     that.init();
+        // }
+
+
+    }
+
+    Page.prototype.create = function () {
+
+        this.el.className = "page";
+        this.prev = document.createElement("div");
+        this.prev.className = "prev";
+        this.prev.innerHTML = "上一页";
+        this.el.appendChild(this.prev);
+
+        this.content = document.createElement("div");
+        this.content.className = "content";
+        this.el.appendChild(this.content);
+
+        this.next = document.createElement("div");
+        this.next.className = "next";
+        this.next.innerHTML = "下一页";
+        this.el.appendChild(this.next);
+
+    }
+
+    new Page("#page");
+
+
+</script>
+
+</html>

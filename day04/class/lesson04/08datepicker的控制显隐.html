@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>时间选择</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .datepicker{
+            width: 200px;
+            height: 30px;
+            display: inline-block;
+            position: relative;
+            /* overflow: hidden; */
+        }
+        .datepicker-content{
+            height: 320px;
+            width: 280px;
+            position: absolute;
+            left: 0;
+            top:30px;
+        }
+        .datepicker-header{
+            width: 280px;
+            height: 40px;
+        }
+        .datepicker-header div{
+            float: left;
+            background-color: black;
+            color: burlywood;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .prev,.next{
+            width: 50px;
+        }
+        .middle{
+            width: 180px;
+        }
+        .datepicker-item{
+            float: left;
+            background-color: black;
+            color: burlywood;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            width: 40px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app">
+        开始时间<datepicker></datepicker>
+    </div>
+</body>
+<template id="datepicker">
+    <div class="datepicker">
+        <input @click.stop="changeFlag"/>
+        <!-- stop叫做事件修饰符 阻止事件传递 -->
+        <div class="datepicker-content" v-show="flag" >
+            <div class="datepicker-header">
+                <div class="prev">上</div>
+                <div class="middle">2021-01-14</div>
+                <div class="next">下</div>
+            </div>
+            <div class="datepicker-th">
+                <div class="datepicker-item">一</div>
+                <div class="datepicker-item">二</div>
+                <div class="datepicker-item">三</div>
+                <div class="datepicker-item">四</div>
+                <div class="datepicker-item">五</div>
+                <div class="datepicker-item">六</div>
+                <div class="datepicker-item">日</div>
+            </div>
+            <div class="datepicker-box">
+                    <div class="datepicker-item" v-for="i in 42">{{i}}</div>
+            </div>
+
+        </div>
+    </div>
+
+</template>
+<script>
+
+    let  datepicker = {
+        data(){
+            return  {
+                flag:false
+            }
+        },
+        methods:{
+            changeFlag(){
+                this.flag = true;
+                //window.event.stopPropagation();
+            }
+        },
+        mounted(){
+            document.onclick=()=>{
+                this.flag = false;
+            }
+        },
+        template:"#datepicker"
+    }
+
+    new  Vue({
+        el:"#app",
+        components:{
+            datepicker
+        }
+    })
+
+
+</script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <script src="js/vue.js"></script>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .lists {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .tr {
+            display: flex;
+            flex-wrap: nowrap;
+            background-color: #555555;
+            margin-bottom: 10px;
+            height: 30px;
+            line-height: 30px;
+            font-size: 20px;
+            color: #fff;
+        }
+
+        .tr .item {
+            width: 25%;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <myadd @myadd="myadduser"></myadd>
+        <mylist :list="list"></mylist>
+    </div>
+
+</body>
+<template id="mylist">
+    <div class="lists">
+        <div class="tr">
+            <div class="item">编号</div>
+            <div class="item">姓名</div>
+            <div class="item">密码</div>
+            <div class="item">操作</div>
+        </div>
+        <div class="tr" v-for="item in list">
+            <div class="item">{{item.id}}</div>
+            <div class="item">{{item.name}}</div>
+            <div class="item">{{item.pwd}}</div>
+            <div class="item">操作</div>
+        </div>
+    </div>
+</template>
+<template id="myadd">
+    <div class="add">
+        <p>姓名：<input type="text" v-model="name"></p>
+        <p>密码：<input type="text" v-model="pwd"></p>
+        <p><input type="button" value="新增" @click="myadd"></p>
+    </div>
+</template>
+<script>
+    let mylist = {
+        props: ["list"],
+        template: "#mylist",
+    };
+    let myadd = {
+        template: "#myadd",
+        data() {
+            return {
+                name: "",
+                pwd: ""
+            }
+        },
+        methods: {
+            myadd() {
+                this.$emit("myadd", { id: 5, name: this.name, pwd: this.pwd })
+            }
+        }
+    }
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            list: [
+                { id: 1, name: "lili", pwd: "123456" },
+                { id: 2, name: "didi", pwd: "654321" },
+                { id: 2, name: "honghong", pwd: "1232456" }
+            ]
+        },
+        components: {
+            mylist,
+            myadd
+        },
+        methods: {
+            myadduser(item) {
+                this.list.push(item)
+            }
+        }
+    })
+</script>
+
+</html>

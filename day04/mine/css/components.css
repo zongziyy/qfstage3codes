@@ -1,0 +1,8 @@
+html, body { height: 100%; width: 100%; }
+html #app, body #app { width: 100%; height: 100%; display: flex; flex-direction: column; }
+html #app .main, body #app .main { flex: 1; overflow-y: scroll; font-size: 30px; text-align: center; }
+html #app .foot, body #app .foot { flex-shrink: 0; height: 60px; line-height: 60px; font-size: 18px; width: 100%; display: flex; flex-wrap: nowrap; }
+html #app .foot li, body #app .foot li { width: 25%; text-align: center; }
+html #app .foot .selected, body #app .foot .selected { background-color: #464646; color: #fff; }
+
+/*# sourceMappingURL=components.css.map */

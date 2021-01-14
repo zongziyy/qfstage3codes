@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .table{
+            width: 600px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .tr-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+        .tr-item input {
+            width: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+
+        <div class="table">
+            <div class="table-tr">
+                <div class="tr-item"><input type="checkbox" :checked="checkall" @click="setCheckAll"/>全选</div>
+                <div class="tr-item">商品名称</div>
+                <div class="tr-item">商品价格</div>
+                <div class="tr-item">商品数量</div>
+                <div class="tr-item">小计</div>
+                <div class="tr-item">操作</div>
+            </div>
+
+            <div class="table-tr" v-for="item  in  list" :key="item.id">
+                <div class="tr-item"><input type="checkbox" v-model="item.ischecked"/></div>
+                <div class="tr-item">{{item.goodsname}}</div>
+                <div class="tr-item">{{item.goodsprice}}</div>
+                <div class="tr-item">
+                    <button v-show="item.goodsnum>1" @click="changeNum(item,-1)">-</button>
+                    <input v-model="item.goodsnum" type="number" min="1"/>
+                    <button @click="changeNum(item,1)">+</button>
+                </div>
+                <div class="tr-item">{{item.goodsnum*item.goodsprice}}</div>
+                <div class="tr-item" @click="del(item.id)">删除</div>
+            </div>
+
+            <div class="footer">
+                <div class="tr-item" @click="delall">批量删除</div>
+                <div class="tr-item"></div>
+                <div class="tr-item"></div>
+                <div class="tr-item">{{totalnum}}</div>
+                <div class="tr-item">{{totalprice}}</div>
+                <div class="tr-item"></div>
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+<script>
+     new  Vue({
+         el:"#app",
+         data:{
+            checkall:false,
+            list:[{id:1,goodsname:"商品一",goodsnum:100,goodsprice:10,ischecked:false},{id:2,goodsname:"商品二",goodsnum:20,goodsprice:100,ischecked:false},{id:3,goodsname:"商品三",goodsnum:50,goodsprice:50,ischecked:false}]
+         },
+         computed:{
+            totalnum(){
+                let  num=0;
+                this.list.forEach((item)=>{
+                    if(item.ischecked){
+                        num += item.goodsnum*1;
+                    }
+                }) 
+                return  num;
+
+            },
+            totalprice(){
+                let price=0;
+                this.list.forEach((item)=>{
+                    if(item.ischecked){
+                        price += item.goodsnum*item.goodsprice;
+                    }
+                }) 
+                return  price;
+            }
+         },
+         methods:{
+             changeNum(item,num){
+                item.goodsnum = item.goodsnum*1 +num;
+             },
+             setCheckAll(){//dom的事件操作
+                 let  flag  = window.event.target.checked;
+                 this.list.forEach(item=>item.ischecked=flag);
+             },
+             del(id){
+                 this.list = this.list.filter(item=>item.id!=id);
+             },
+             delall(){
+                 this.list = this.list.filter(item=>!item.ischecked)
+             }
+         },
+         watch:{
+             list:{
+                 deep:true,
+                 handler(newlist){
+                    this.checkall =newlist.every(item=>item.ischecked);
+                 }
+             }
+         }
+
+
+     })
+
+</script>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        .list{
+            width: 400px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .list  .tr-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <my-add @myevent="addUserinfo" ></my-add>
+        <!-- myevent 自定义事件 -->
+        <my-list abc="你好" :bcd="list" :list="list" @del="delUserById"></my-list>
+        <!-- 组件就是自定义标签 标签有属性 和 方法 -->
+        <!-- 属性是用来接收数据   方法传递数据 -->
+        <!-- 组件的使用 就是函数的调用  属性就是类似函数的参数-->
+    </div>
+</body>
+<template id="mylist">
+    <div class="list">
+        {{abc}}
+        <div class="list-tr">
+            <div class="tr-item">编号</div>
+            <div class="tr-item">姓名</div>
+            <div class="tr-item">密码</div>
+            <div class="tr-item">操作</div>
+        </div>
+        <div class="list-tr" v-for="item  in  list">
+            <div class="tr-item">{{item.id}}</div>
+            <div class="tr-item">{{item.username}}</div>
+            <div class="tr-item">{{item.userpwd}}</div>
+            <div class="tr-item" @click="del(item.id)">删除</div>
+        </div>
+    </div>
+</template>
+<template id="myadd">
+    <div class="add">
+        姓名<input v-model="username">
+        密码<input v-model="userpwd">
+        <button @click="add">新增</button>
+    </div>
+
+</template>
+
+<script>
+   new  Vue({
+    el:"#app",
+    data:{
+        list:[{id:1,username:"leson",userpwd:123},{id:2,username:"lulu",userpwd:123},{id:3,username:"lili",userpwd:123}]
+    },
+    methods:{
+        addUserinfo(item){//{id:4,username:"abc",userpwd:321}
+            this.list.push({...item,id:this.list[this.list.length-1].id+1});
+        },
+        delUserById(id){
+            this.list  = this.list.filter(item=>item.id!=id);
+        }
+    },
+    components:{
+        "my-list":{
+                props:["abc","bcd","list"],
+                template:"#mylist",
+                methods:{
+                    del(id){
+                        this.$emit("del",id);
+                    }
+                }
+            },
+         "my-add":{
+                data(){
+                    return  {
+                        username:"",
+                        userpwd:""
+                    }
+                },
+                methods:{
+                    add(){
+                        // console.log(this.username);
+                        // console.log(this.userpwd);
+                        this.$emit("myevent",{username:this.username,userpwd:this.userpwd})
+                        // $emit 是个关键字 用来调用自定义事件
+                        //第一个参数是事件名称   第二个是事件的参数
+                    }
+                },
+                template:"#myadd"
+         }   
+    }
+
+
+   })
+
+
+      
+    
+
+</script>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <my-btn></my-btn>
+    </div>
+</body>
+<template id="mybtn">
+    <div>{{num}}<button @click="add">加法</button></div>
+</template>
+<script>
+
+let  myBtn = {
+                data(){
+                    return {
+                        num:10
+                    }
+                },
+                methods:{
+                    add(){
+                        this.num++;
+                    }
+                },
+                template:`#mybtn`
+            }
+    new  Vue({
+        el:"#app",
+        components:{
+            "my-btn":myBtn
+        }
+
+    })
+      
+    
+
+</script>
+</html>
