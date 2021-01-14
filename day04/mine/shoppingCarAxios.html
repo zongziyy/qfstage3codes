@@ -16,49 +16,10 @@
 
     <div id="app">
         <div class="cart-goods-list w">
-            <div class="list-head cl">
-                <div class="col col-check">
-                    <input type="checkbox" class="check-all" id="check-all" hidden @click="changecheckboxes" :checked="checkAll">
-                    <label for="check-all">
-                        <i class="iconfont icon-duigou"></i>
-                    </label>
-                    <span> 全选</span>
-                </div>
-                <div class="col col-img">&nbsp;</div>
-                <div class="col col-name">商品名称</div>
-                <div class="col col-price">单价</div>
-                <div class="col col-num">数量</div>
-                <div class="col col-total">小计</div>
-                <div class="col col-action">操作</div>
-            </div>
-            <ul class="goodsList" v-for="item in shoppingCarList">
-                <li>
-                    <div class="col col-check">
-                        <input type="checkbox" class="check-one" :id="item.id" hidden v-model="item.ischecked">
-                        <label :for="item.id">
-                            <i class="iconfont icon-duigou"></i>
-                        </label>
-                    </div>
-                    <div class="col col-img">
-                        <img :src="item.goodsImg" alt="" class="goodsImg">
-                    </div>
-                    <div class="col col-name">
-                        <h3 class="goodsName">{{item.goodsName}} {{item.buyEdition}} {{item.buyColor}}</h3>
-                    </div>
-                    <div class="col col-price"><span>{{item.goodsPrice}}元</span></div>
-                    <div class="col col-num">
-                        <div class="numberChange">
-                            <span class="numAdd" @click="changeNum(item,-1)">-</span><input type="text" class="goodsNum" v-model="item.goodsNum" @change="changeInpNum(item)"><span class="numRemove" @click="changeNum(item,+1)">+</span>
-                        </div>
-                    </div>
-                    <div class="col col-total">{{item.goodsNum*item.goodsPrice}}元</div>
-                    <div class="col col-action">
-                        <a href="javascript:;">
-                            <i class="iconfont icon-cha" @click="del(item)"></i>
-                        </a>
-                    </div>
-                </li>
-            </ul>
+            <listhead @changecheckboxes="changecheckboxes" :checkall="checkAll"></listhead>
+            <!-- <div>{{shoppingCarList}}</div> -->
+            <lists :shoppingcarlist="shoppingCarList" @changenum="changeNum" @del="del" @changeinpnum="changeInpNum"></lists>
+
             <div class="cart-bar cl w">
                 <div class="section-left">
                     <a href="javascript:;" class="delete-all" @click="delAll">删除</a>
@@ -73,13 +34,94 @@
     </div>
 
 </body>
+<template id="list-head">
+    <div class="list-head cl">
+        <div class="col col-check">
+            <input type="checkbox" class="check-all" id="check-all" hidden @click="changecheckboxes" :checked="checkall">
+            <label for="check-all">
+                <i class="iconfont icon-duigou"></i>
+            </label>
+            <span> 全选</span>
+        </div>
+        <div class="col col-img">&nbsp;</div>
+        <div class="col col-name">商品名称</div>
+        <div class="col col-price">单价</div>
+        <div class="col col-num">数量</div>
+        <div class="col col-total">小计</div>
+        <div class="col col-action">操作</div>
+    </div>
+</template>
 
+<template id="goodsLists">
+    <div>
+        <ul class="goodsList" v-for="item in shoppingcarlist" :key="item.id">
+            <li>
+                <div class="col col-check">
+                    <input type="checkbox" class="check-one" hidden v-model="item.ischecked" :id="item.id">
+                    <label :for="item.id">
+                        <i class="iconfont icon-duigou"></i>
+                    </label>
+                </div>
+                <div class="col col-img">
+                    <img :src="item.goodsImg" alt="" class="goodsImg">
+                </div>
+                <div class="col col-name">
+                    <h3 class="goodsName">{{item.goodsName}} {{item.buyEdition}} {{item.buyColor}}</h3>
+                </div>
+                <div class="col col-price"><span>{{item.goodsPrice}}元</span></div>
+                <div class="col col-num">
+                    <div class="numberChange">
+                        <span class="numAdd" @click="changeNum(item,-1)">-</span><input type="text" class="goodsNum" v-model="item.goodsNum" @change="changeInpNum(item)"><span class="numRemove" @click="changeNum(item,+1)">+</span>
+                    </div>
+                </div>
+                <div class="col col-total">{{item.goodsNum*item.goodsPrice}}元</div>
+                <div class="col col-action">
+                    <a href="javascript:;">
+                        <i class="iconfont icon-cha" @click="del(item)"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</template>
 <script>
+    let listhead = {
+        template: "#list-head",
+        props: ["checkall"],
+        methods: {
+            changecheckboxes() {
+                this.$emit("changecheckboxes");
+                // console.log(this.checkAll);
+            }
+        }
+    }
+
+    let lists = {
+        template: "#goodsLists",
+        props: ["shoppingcarlist"],
+        methods: {
+            changeNum(item, num) {
+                this.$emit("changenum", item, num)
+            },
+            changeInpNum(item) {
+                this.$emit("changeinpnum", item)
+            },
+            del(item) {
+                this.$emit("del", item)
+            },
+        }
+    }
+
+    //父组件
     const vm = new Vue({
         el: '#app',
         data: {
             checkAll: false,
             shoppingCarList: [],
+        },
+        components: {
+            listhead,
+            lists
         },
         created() {
             axios({
@@ -98,8 +140,9 @@
                 }
                 item.goodsNum = item.goodsNum * 1 + num;
             },
-            changecheckboxes(e) {
-                if (e.target.checked) {
+            changecheckboxes() {
+                var target = window.event.target;
+                if (target.checked) {
                     this.shoppingCarList.forEach(item => item.ischecked = true)
                 } else {
                     this.shoppingCarList.forEach(item => item.ischecked = false)

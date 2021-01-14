@@ -67,44 +67,46 @@
     </div>
 </body>
 <script>
-    function Page(el,json) {
+    function Page(el, json) {
+        console.log(this)
         this.el = document.querySelector(el);
         this.option = {
             total: 100,
-            shownum: 10,//每页显示五条
-            showpage: 5,//连续出现的页码数 
-            pageindex: 1,//默认显示第一页数据
+            shownum: 10, //每页显示五条
+            showpage: 5, //连续出现的页码数 
+            pageindex: 1, //默认显示第一页数据
         }
-        Object.assign(this.option,json);//两个对象的合并
-        this.create();//创建页面结构
-        this.init();//根据数据渲染页面
+        Object.assign(this.option, json); //两个对象的合并
+        this.create(); //创建页面结构
+        this.init(); //根据数据渲染页面
     }
 
-    Page.prototype.init = function () {
+
+    Page.prototype.init = function() {
         let that = this;
         this.content.innerHTML = "";
         this.start = 1;
-        this.end = this.option.showpage;//5
-        this.middleNum = Math.floor(this.option.showpage / 2);//2
-        this.countPage = Math.ceil(this.option.total / this.option.shownum);//总页码数
+        this.end = this.option.showpage; //5
+        this.middleNum = Math.floor(this.option.showpage / 2); //2
+        this.countPage = Math.ceil(this.option.total / this.option.shownum); //总页码数
 
 
         //中间的判断
         if (this.option.pageindex > this.middleNum) {
-            this.start = this.option.pageindex - this.middleNum;//4-2
-            this.end = this.option.pageindex + this.middleNum;//4+2
+            this.start = this.option.pageindex - this.middleNum; //4-2
+            this.end = this.option.pageindex + this.middleNum; //4+2
         }
 
         //尾部的判断
-        if (this.option.pageindex > this.countPage - this.middleNum) {//10-2
-            this.end = this.countPage;//10
-            this.start = this.countPage - 2 * this.middleNum;//10-4 = 6
+        if (this.option.pageindex > this.countPage - this.middleNum) { //10-2
+            this.end = this.countPage; //10
+            this.start = this.countPage - 2 * this.middleNum; //10-4 = 6
         }
 
         this.start = this.start < 1 ? 1 : this.start;
 
 
-        for (let i = this.start; i <= this.end; i++) {//let构建块级作用域
+        for (let i = this.start; i <= this.end; i++) { //let构建块级作用域
             let item = document.createElement("div");
             if (i == this.option.pageindex) {
                 item.className = "item selected";
@@ -113,9 +115,11 @@
             }
             item.innerHTML = i;
             this.content.appendChild(item);
-            item.onclick = function () {
+            item.onclick = function() {
                 that.option.pageindex = i;
                 that.init();
+                console.log(this);
+                console.log(that);
             }
         }
 
@@ -126,15 +130,15 @@
         this.next.className = "next disabled";
 
         if (this.option.pageindex != 1) {
-            this.prev.className="prev";
-            this.prev.onclick = function () {
+            this.prev.className = "prev";
+            this.prev.onclick = function() {
                 that.option.pageindex--;
                 that.init();
             }
         }
-        if(this.option.pageindex != this.countPage){
-            this.next.className="next";
-            this.next.onclick = function () {
+        if (this.option.pageindex != this.countPage) {
+            this.next.className = "next";
+            this.next.onclick = function() {
                 that.option.pageindex++;
                 that.init();
             }
@@ -151,8 +155,8 @@
 
     }
 
-    Page.prototype.create = function () {
-
+    Page.prototype.create = function() {
+        console.log(this)
         this.el.className = "page";
         this.prev = document.createElement("div");
         this.prev.className = "prev";
@@ -170,16 +174,14 @@
 
     }
 
-    new Page("#page",{
-        total:100,
-        showpage:7,
-        shownum:10,
-        callback:function(pageindex){
-            alert(pageindex);
+    var abc = new Page("#page", {
+        total: 100,
+        showpage: 7,
+        shownum: 10,
+        callback: function(pageindex) {
+            // alert(pageindex);
         }
     });
-
-
 </script>
 
 </html>
