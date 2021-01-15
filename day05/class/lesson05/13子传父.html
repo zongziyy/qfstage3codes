@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{username}} <button @click="getusername">得到子元素的数据</button>
+        <child2></child2>
+        <child1 ref="child1"></child1>
+        <!-- ref就是类似于id -->
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            username: ""
+        },
+        methods: {
+            getusername() {
+                this.username = this.$refs.child1.$refs.abc.value;
+            }
+        },
+        components: {
+            "child2": {
+                data() {
+                    return { username: "lili" }
+                },
+                template: "<div>{{username}}</div>"
+            },
+            "child1": {
+                template: `<div><input ref="abc"/> </div>`
+            }
+        }
+    })
+</script>
+
+</html>

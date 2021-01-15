@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子传子</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child1></child1>
+        <child2 ></child2>
+    </div>
+</body>
+
+<script>
+
+    let  bus  = new Vue();//公共的事件
+
+    new Vue({
+        el:"#app",
+        components:{
+            "child1":{
+                data(){
+                    return  {username:""}
+                },
+                template:"<div>这里显示child2元素的数据{{username}} </div>",
+                mounted(){
+               
+                 // 声明另一个公共的方法  绑定在bus上
+                 bus.$on("getchild2usenrame",(msg)=>{
+                        this.username = msg;
+                 })
+           
+
+                }
+            },
+            "child2":{
+                data(){
+                    return  {
+                        username:"",
+                    }
+                },
+                template:`<div> <input v-model="username"> <button @click="getusername">把数据给兄弟</button> </div>`,
+                methods:{
+                    getusername(){
+                        bus.$emit("getchild2usenrame",this.username)
+                    }
+                }
+            }
+        }
+    })
+   
+
+</script>
+
+</html>

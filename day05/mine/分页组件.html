@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue文档</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <style>
+        .pagebox {
+            display: flex;
+            width: max-content;
+            flex-wrap: nowrap;
+            font-size: 14px;
+        }
+
+        .pagebox>* {
+            background-color: #8a8a8a;
+            color: #fff;
+            line-height: 40px;
+            text-align: center;
+            margin-right: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .pagebox .prev,
+        .pagebox .next {
+            width: 80px;
+            height: 40px;
+        }
+
+        .pagebox .pages {
+            width: 40px;
+            height: 40px;
+
+        }
+
+        .pagebox .selected {
+            background-color: #4b4b4b;
+            color: #e6e6e6;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- <pagination :goodslist="goodslist"></pagination> -->
+        <pagination></pagination>
+    </div>
+
+</body>
+<template id="pagination">
+    <div class="pagebox">
+        <div class="prev" @click="prev">上一页</div>
+        <div class="pages" :class="{selected:pageIndex==item}" v-for="item in list" @click="changeindex(item)">{{item}}</div>
+        <div class="next" @click="next">下一页</div>
+    </div>
+</template>
+
+<script>
+    let pagination = {
+        template: "#pagination",
+        // props: ["goodslist"],
+        data() {
+            return {
+                pageIndex: 1,
+                count: 50,
+                shownum: 5,
+                showpage: 5,
+                list: [1, 2, 3, 4, 5]
+            }
+        },
+        methods: {
+            changeindex(item) {
+                this.pageIndex = item
+            },
+            prev() {
+                this.pageIndex--;
+            },
+            next() {
+                this.pageIndex++;
+            },
+        },
+        watch: {
+            pageIndex: {
+                immediate: true,
+                handler(index) {
+
+                    this.pageIndex = index;
+
+                    this.start = 1;
+                    this.end = this.showpage;
+                    this.maxPage = Math.ceil(this.count / this.shownum);
+                    this.midIndex = Math.floor(this.showpage / 2);
+
+                    if (index > this.midIndex) {
+                        this.start = index - this.midIndex;
+                        this.end = index + this.midIndex
+                    }
+
+                    if (index > this.maxPage - this.midIndex) {
+                        this.start = this.maxPage - this.midIndex * 2;
+                        this.end = this.maxPage;
+                    }
+                    this.end = this.end > this.maxPage ? this.maxPage : this.end
+
+                    this.list = [];
+                    for (let i = this.start; i <= this.end; i++) {
+                        this.list.push(i);
+                    }
+                }
+            }
+        }
+    }
+
+    const vm = new Vue({
+        el: '#app',
+        components: {
+            pagination
+        },
+        data: {
+            // count: 100,
+            // pageIndex: 1,
+            // shownum: 5,
+            // showpage: 5,
+            // goodslist: []
+        },
+        // created() {
+        //     axios({
+        //         method: "get",
+        //         url: "http://localhost:3333/goodslist"
+        //     }).then(res => {
+        //         this.count = res.data.length;
+        //     })
+        // },
+        methods: {}
+    })
+</script>
+
+</html>

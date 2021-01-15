@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <script src="js/axios.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .page {
+            width: 500px;
+            height: 40px;
+            margin-top: 10px;
+        }
+
+        .page div {
+            float: left;
+        }
+
+        .prev,
+        .next {
+            width: 80px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+            margin-left: 5px;
+        }
+
+        .item {
+            float: left;
+            margin-left: 5px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+
+        .item.selected {
+            background-color: crimson;
+        }
+        .list{
+            width: 300px;
+            overflow: hidden;
+        }
+        .tr-item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            background-color: black;
+            color: burlywood;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="list">
+                <div class="list-tr">
+                    <div class="tr-item">编号</div>
+                    <div class="tr-item">用户名</div>
+                    <div class="tr-item">密码</div>
+                </div>
+                <div class="list-tr" v-for="item in  list">
+                    <div class="tr-item">{{item.id}}</div>
+                    <div class="tr-item">{{item.username}}</div>
+                    <div class="tr-item">{{item.userpwd}}</div>
+                </div>
+        </div>
+
+        <page :total="total" :pagenum="showpage" :shownum="shownum" @retrunpageindex="getpageindex"></page>
+    </div>
+
+</body>
+<template id="page">
+    <div class="page">
+        <div class="prev" @click="prev" v-show="pageindex!=1">上一页</div>
+        <div class="content">
+            <div class="item" :class="{selected:pageindex==item}" v-for="item in list" @click="changeindex(item)">
+                {{item}}</div>
+        </div>
+        <div class="next" @click="next" v-show="pageindex!=maxPage">下一页</div>
+    </div>
+</template>
+<script>
+    let page = {
+        template: "#page",
+        props:["total","pagenum","shownum"],
+        data() {
+            return {
+                // total: 100,//总数
+                // pagenum: 5,//连续出现的页码
+                // shownum: 10,//每页显示多少条数据
+                pageindex: 1,//默认显示多少页,
+                list: [],//要显示的页码的集合
+            }
+        },
+        methods: {
+            changeindex(index) {
+                this.pageindex = index;
+            },
+            prev(){
+                this.pageindex--;
+            },
+            next(){
+                this.pageindex++;
+            }
+
+        },
+
+        watch: {
+            pageindex: {
+                immediate: true,//页码加载时候 就会自动触发一次监听
+                handler(index) {//当页码发生改变的时候触发
+
+                    this.start = 1;//1
+                    this.end = this.pagenum;  //5
+                    this.maxPage = Math.ceil(this.total / this.shownum);//总的页码数
+                    this.middleNum = Math.floor(this.pagenum / 2);//中间数                        this.end= this.maxPage;
+
+
+                    //中间
+                    if (index > this.middleNum) {//4>2
+                        this.start = index - this.middleNum;// 4-2
+                        this.end = index + this.middleNum //4+2;
+                    }
+                    //结尾
+                    if (index > this.maxPage - this.middleNum) {//   9  10
+                        this.start = this.maxPage - 2 * this.middleNum;//10-4
+                        this.end = this.maxPage;//10
+                    }
+                    this.start = this.start < 1 ? 1 : this.start;//开头不可能小于1
+
+                    this.list.length = 0;
+                    for (var i = this.start; i <= this.end; i++) {
+                        this.list.push(i);
+                    }
+
+                    this.$emit("retrunpageindex",this.pageindex);
+
+                }
+            }
+
+        }
+    }
+
+    new Vue({
+        el: "#app",
+        data:{
+            total:100,//总数
+            shownum:10,//每页显示多少条
+            showpage:7,//联系出现页码
+            list:[],
+        },
+        components: {
+            page
+        },
+        created(){//页码加载的时候  获取数据总数
+            axios({
+                method:"get",
+                url:"http://localhost:4567/userinfos"
+            }).then(res=>{
+                this.total = res.data.length;//获取数据总数
+               // console.log(this.total);
+            })
+
+        },
+        methods:{
+            getpageindex(index){
+               axios({
+                   method:"get",
+                   url:"http://localhost:4567/userinfos",
+                   params:{
+                       _page:index,
+                       _limit:this.shownum
+                   }
+               }).then(res=>{
+                   this.list = res.data;
+               })
+            }
+        }
+    })
+
+</script>
+
+</html>
+

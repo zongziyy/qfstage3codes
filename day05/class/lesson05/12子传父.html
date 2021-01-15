@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        {{username}} <button @click="getusername">得到子元素的数据</button>
+        <child1></child1>
+        <child2></child2>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            username: ""
+        },
+        methods: {
+            getusername() {
+                this.username = this.$children[1].username;
+            }
+        },
+        components: {
+            "child2": {
+                data() {
+                    return { username: "lili" }
+                },
+                template: "<div>{{username}}</div>"
+            },
+            "child1": {
+                data() {
+                    return { username: "" }
+                },
+                template: `<div><input v-model="username"/> </div>`
+            }
+        }
+    })
+</script>
+
+</html>

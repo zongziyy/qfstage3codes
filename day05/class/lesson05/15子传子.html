@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>子传子</title>
+    <script src="js/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <child1 @returnusername="getusername"></child1>
+        <child2 :username="username"></child2>
+    </div>
+</body>
+<script>
+    new Vue({
+        el: "#app",
+        data:{
+            username:"",
+        },
+        methods:{
+            getusername(username){
+                this.username = username;
+            }
+
+        },
+        components: {
+            "child1": {
+                data() {
+                    return {username: ""}
+                },
+                watch:{
+                    username(username){
+                        this.$emit("returnusername",username);
+                    }
+                },
+                template: '<div><input v-model="username"/></div>'
+            },
+            "child2": {
+                props:["username"],
+                template: `<div>
+                            <button @click="getusername">获取子元素的内容</button>
+                          </div>`,
+                methods:{
+                    getusername(){
+                        alert(this.username);
+                    }
+                }
+            }
+        }
+    })
+
+</script>
+
+</html>

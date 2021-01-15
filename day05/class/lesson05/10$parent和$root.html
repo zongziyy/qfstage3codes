@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件的通信</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child1>
+        </child1>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            num:10
+        },
+        components:{
+            "child1":{
+                template:`<div>{{n}} <child2></child2> </div>`,
+                created(){
+                    this.n = this.$parent.num;
+                },
+                components:{
+                    child2:{
+                        template:"<div>我是孙子{{n2}}</div>",
+                        created(){
+                            this.n2 = this.$root.num;
+                        }
+                    }
+                }
+
+            }
+        }
+    })
+//   title: String,
+//   likes: Number,
+//   isPublished: Boolean,
+//   commentIds: Array,
+//   author: Object,
+//   callback: Function,
+//   contactsPromise: Promise // or any other constructor
+
+
+</script>
+</html>

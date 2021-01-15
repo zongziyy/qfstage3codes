@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{username}}
+        <child1 @returnusername="setusername"></child1>
+    </div>
+</body>
+<script>
+    new  Vue({
+        el:"#app",
+        data:{
+            username:""
+        },
+        methods:{
+            setusername(username){
+                this.username = username;
+            }
+        },
+        components:{
+            "child1":{
+                data(){
+                    return {username:""}
+                },
+                template:`<div> <input v-model="username"><button @click="getusername">子传父</button></div>`,
+                methods:{
+                    getusername(){
+                        // alert(this.username);
+                        // this.$parent.username = this.username;
+                        this.$emit("returnusername",this.username);
+                    }
+                }
+            }
+       }
+
+    })
+
+</script>
+</html>
