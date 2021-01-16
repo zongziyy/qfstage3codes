@@ -9,11 +9,17 @@
     <script src="js/vue.js"></script>
     <script src="js/axios.min.js"></script>
     <style>
+        .box {
+            width: 800px;
+            margin: 0 auto;
+        }
+
         .pagebox {
             display: flex;
             width: max-content;
             flex-wrap: nowrap;
             font-size: 14px;
+            margin: 0 auto;
         }
 
         .pagebox>* {
@@ -42,14 +48,57 @@
             background-color: #4b4b4b;
             color: #e6e6e6;
         }
+
+        .goodsbox {
+            width: 800px;
+        }
+
+        .goodsbox .list-tr {
+            width: 100%;
+            display: flex;
+            flex-wrap: nowrap;
+        }
+
+        .goodsbox .list-head {
+            background-color: #585858;
+            color: #fff;
+            height: 40px;
+            line-height: 40px;
+            font-size: 16px;
+            margin-bottom: 3px;
+        }
+
+        .goodsbox .list-body {
+            background-color: #585858;
+            color: #fff;
+            line-height: 30px;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .goodsbox .list-tr {
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .goodsbox .list-tr .list-item {
+            width: 20%;
+            text-align: center;
+        }
+
+        .search {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 
 <body>
 
     <div id="app">
-        <!-- <pagination :goodslist="goodslist"></pagination> -->
-        <pagination></pagination>
+        <div class="box">
+            <search></search>
+            <goods :goodslist="goodslist"></goods>
+            <pagination :shownum="shownum" :showpage="showpage" :count="count" @returnindex="getpageindex"></pagination>
+        </div>
     </div>
 
 </body>
@@ -60,18 +109,66 @@
         <div class="next" @click="next">下一页</div>
     </div>
 </template>
-
+<template id="goods">
+    <div class="goodsbox">
+        <div class="list-head">
+            <div class="list-tr">
+                <div class="list-item">编号</div>
+                <div class="list-item">名称</div>
+                <div class="list-item">价格</div>
+                <div class="list-item">销量</div>
+                <div class="list-item">操作</div>
+            </div>
+        </div>
+        <div class="list-body">
+            <div class="list-tr" v-for="item in goodslist">
+                <div class="list-item">{{item.id}}</div>
+                <div class="list-item">{{item.goodsName}}</div>
+                <div class="list-item">{{item.goodsPrice}}</div>
+                <div class="list-item">{{item.saleNum}}</div>
+                <div class="list-item">删除</div>
+            </div>
+        </div>
+    </div>
+</template>
+<template id="search">
+    <div class="search">
+        <input type="text" v-model="keywords"><button @click="searchgoods">搜索</button>
+    </div>
+</template>
 <script>
+    let search = {
+        template: "#search",
+        props: ["keywords"],
+
+    }
+
+
+
+    let goods = {
+        template: "#goods",
+        props: ["goodslist"],
+        // watch: {
+        //     goodslist: {
+        //         deep: true,
+        //         handler(newlist) {
+        //             this.goodslist = newlist;
+        //         }
+        //     }
+        // }
+    }
+
+
     let pagination = {
         template: "#pagination",
-        // props: ["goodslist"],
+        props: ["shownum", "showpage", "count"],
         data() {
             return {
                 pageIndex: 1,
-                count: 50,
-                shownum: 5,
-                showpage: 5,
-                list: [1, 2, 3, 4, 5]
+                // count: 50,
+                // shownum: 5,
+                // showpage: 5,
+                list: []
             }
         },
         methods: {
@@ -84,60 +181,93 @@
             next() {
                 this.pageIndex++;
             },
+            init(index) {
+                this.start = 1;
+                this.end = this.showpage;
+                this.maxPage = Math.ceil(this.count / this.shownum);
+                this.midIndex = Math.floor(this.showpage / 2);
+
+                index = index >= 1 ? (index <= this.maxPage ? index : this.maxPage) : 1;
+
+                this.pageIndex = index;
+
+                if (index > this.midIndex) {
+                    this.start = index - this.midIndex;
+                    this.end = index + this.midIndex
+                }
+
+                if (index > this.maxPage - this.midIndex) {
+                    this.start = this.maxPage - this.midIndex * 2;
+                    this.end = this.maxPage;
+                }
+                this.end = this.end > this.maxPage ? this.maxPage : this.end
+
+                this.list = [];
+                for (let i = this.start; i <= this.end; i++) {
+                    this.list.push(i);
+                }
+
+                this.$emit("returnindex", this.pageIndex)
+            }
         },
         watch: {
+            count(count) {
+                if (this.pageIndex != 1) {
+                    this.pageIndex = 1
+                } else {
+                    this.init(1)
+                }
+            },
             pageIndex: {
                 immediate: true,
                 handler(index) {
-
-                    this.pageIndex = index;
-
-                    this.start = 1;
-                    this.end = this.showpage;
-                    this.maxPage = Math.ceil(this.count / this.shownum);
-                    this.midIndex = Math.floor(this.showpage / 2);
-
-                    if (index > this.midIndex) {
-                        this.start = index - this.midIndex;
-                        this.end = index + this.midIndex
-                    }
-
-                    if (index > this.maxPage - this.midIndex) {
-                        this.start = this.maxPage - this.midIndex * 2;
-                        this.end = this.maxPage;
-                    }
-                    this.end = this.end > this.maxPage ? this.maxPage : this.end
-
-                    this.list = [];
-                    for (let i = this.start; i <= this.end; i++) {
-                        this.list.push(i);
-                    }
+                    this.init(index)
                 }
             }
         }
     }
 
+
+
     const vm = new Vue({
         el: '#app',
         components: {
-            pagination
+            goods,
+            pagination,
+            search
         },
         data: {
-            // count: 100,
+            count: 50,
             // pageIndex: 1,
-            // shownum: 5,
-            // showpage: 5,
-            // goodslist: []
+            shownum: 5,
+            showpage: 5,
+            goodslist: []
         },
-        // created() {
-        //     axios({
-        //         method: "get",
-        //         url: "http://localhost:3333/goodslist"
-        //     }).then(res => {
-        //         this.count = res.data.length;
-        //     })
-        // },
-        methods: {}
+        created() {
+            axios({
+                method: "get",
+                url: "http://localhost:3333/goodslist"
+            }).then(res => {
+                this.count = res.data.length;
+            })
+        },
+        methods: {
+            search(keywords) {
+
+            },
+            getpageindex(index) {
+                axios({
+                    method: "get",
+                    url: "http://localhost:3333/goodslist",
+                    params: {
+                        _page: index,
+                        _limit: this.shownum
+                    }
+                }).then(res => {
+                    this.goodslist = res.data;
+                })
+            }
+        }
     })
 </script>
 
