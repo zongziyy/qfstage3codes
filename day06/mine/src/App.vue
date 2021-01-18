@@ -1,32 +1,44 @@
 <template>
     <div id="app">
-        <router-view />
+        <router-view id="main" />
         <div id="nav">
-            <router-link to="/">Home</router-link> |
-            <router-link to="/about">About</router-link> |
             <router-link to="/banner">电影</router-link> |
-            <router-link to="/mine">Mine</router-link>
+            <router-link to="/">影院</router-link> |
+            <router-link to="/about">资讯</router-link> |
+            <router-link to="/mine">我的</router-link>
         </div>
     </div>
 </template>
 
 <style>
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
 }
-
+#main {
+    flex: 1;
+    overflow-y: scroll;
+}
 #nav {
-    position: fixed;
     width: 100%;
     height: 40px;
     line-height: 40px;
     bottom: 0;
     display: flex;
     background-color: #fff;
+    flex-shrink: 0;
 }
 
 #nav a {

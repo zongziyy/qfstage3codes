@@ -1,35 +1,34 @@
 <template>
     <div class="content">
-        <ul>
-            <li v-for="item in movieList" :key="item.filmsId">
-                <div class="letf">
-                    <img :src="item.poster" alt="" />
-                </div>
-                <div class="center">
-                    <p>
-                        {{ item.name
-                        }}<span class="type">{{ item.item.name }}</span>
-                    </p>
-                    <p>
-                        观众评分 <span class="score">{{ item.grade }}</span>
-                    </p>
-                    <p>
-                        主要演员: <span>{{ item.actors | filterActor }}</span>
-                    </p>
-                    <p>
-                        <span class="area">{{ item.nation }}</span> |
-                        <span class="runtime">{{
-                            new Date(item.premiereAt * 1000).dateformater(
-                                "ww mm月dd日"
-                            )
-                        }}</span>
-                    </p>
-                </div>
-                <div class="right">
-                    <button>购票</button>
-                </div>
-            </li>
-        </ul>
+        <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+            <ul>
+                <li v-for="item in movieList" :key="item.filmsId">
+                    <div class="letf">
+                        <img :src="item.poster" alt="" />
+                    </div>
+                    <div class="center">
+                        <p>
+                            {{ item.name
+                            }}<span class="type">{{ item.item.name }}</span>
+                        </p>
+                        <p>
+                            观众评分 <span class="score">{{ item.grade }}</span>
+                        </p>
+                        <p>
+                            主要演员:
+                            <span>{{ item.actors | filterActor }}</span>
+                        </p>
+                        <p>
+                            <span class="area">{{ item.nation }}</span> |
+                            <span class="runtime">{{ item.runtime }}分钟</span>
+                        </p>
+                    </div>
+                    <div class="right">
+                        <button>购票</button>
+                    </div>
+                </li>
+            </ul>
+        </van-pull-refresh>
     </div>
 </template>
 
@@ -110,6 +109,8 @@
 
 <script>
 import movies from "../../model/movies";
+import { Toast } from "vant";
+
 Date.prototype.dateformater = function (str) {
     let year = this.getFullYear();
     let month = this.getMonth() + 1;
@@ -127,12 +128,13 @@ export default {
     data() {
         return {
             movieList: [],
+            count: 0,
+            isLoading: false,
         };
     },
     created() {
         movies.movieList().then((res) => {
             this.movieList = res.data.data.films;
-            console.log(this.movieList);
         });
     },
     filters: {
@@ -142,6 +144,16 @@ export default {
             } else {
                 return "暂无演员";
             }
+        },
+    },
+    methods: {
+        onRefresh() {
+            movies.movieList().then((res) => {
+                this.movieList = res.data.data.films;
+                Toast("刷新成功");
+                this.isLoading = false;
+                this.count++;
+            });
         },
     },
 };

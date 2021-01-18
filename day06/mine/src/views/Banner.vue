@@ -5,18 +5,20 @@
                 <img :src="item.img" alt="" />
             </van-swipe-item>
         </van-swipe>
-        <div class="change">
-            <div
-                class="hot-playing"
-                v-for="item in list"
-                :key="item.id"
-                @click="changePage(item)"
-            >
-                <span :class="{ selected: flag == item.id }">{{
-                    item.title
-                }}</span>
+        <van-sticky>
+            <div class="change">
+                <div
+                    class="hot-playing"
+                    v-for="item in list"
+                    :key="item.id"
+                    @click="changePage(item)"
+                >
+                    <span :class="{ selected: flag == item.id }">{{
+                        item.title
+                    }}</span>
+                </div>
             </div>
-        </div>
+        </van-sticky>
         <component :is="com"></component>
     </div>
 </template>
@@ -38,6 +40,7 @@
 .change {
     width: 100%;
     display: flex;
+    background-color: #fff;
 }
 .change .hot-playing {
     width: 50%;
