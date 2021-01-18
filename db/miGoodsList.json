@@ -1,4 +1,28 @@
-{
+{   
+    "banner":[
+        {
+            "id":1,
+            "img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/4fb43da6c3e4671ea9f0cc0a8088a897.jpg?w=2452&h=920"
+        },
+        {
+            "id":2,
+            "img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ed3db75d62d66994c219e5df3f7c648d.jpg?thumb=1&w=1533&h=575&f=webp&q=90"
+        },
+        {
+            "id":3,
+            "img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/9ebff5f5c1f52f2dbdd611897adbefd4.jpg?thumb=1&w=1533&h=575&f=webp&q=90"
+        },
+        {
+            "id":4,
+            "img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/0ef4160c861b998239bce9adb82341e7.jpg?thumb=1&w=1533&h=575&f=webp&q=90"
+        },
+        {
+            "id":5,
+            "img":"https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3f6e668156e4d84d08058dae6c77740c.jpg?thumb=1&w=1533&h=575&f=webp&q=90"
+        }
+    ],
+
+
     "shoppingCar": [{
             "id": 1,
             "userphone": "17371420646",
