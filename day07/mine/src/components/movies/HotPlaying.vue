@@ -53,7 +53,7 @@
 
 <script>
 import movies from "../../model/movies";
-// import { Toast } from "vant";
+import { Toast } from "vant";
 
 Date.prototype.dateformater = function (str) {
     let year = this.getFullYear();
@@ -129,7 +129,7 @@ export default {
                 },
             });
         },
-        onLoad() {
+        onLoad(fn) {
             if (this.refreshing) {
                 this.movieList = [];
                 this.refreshing = false;
@@ -152,6 +152,9 @@ export default {
                     if (this.movieList.length >= this.total) {
                         this.finished = true;
                     }
+                    if (fn) {
+                        fn();
+                    }
                 });
         },
         onRefresh() {
@@ -161,7 +164,9 @@ export default {
             // 重新加载数据
             // 将 loading 设置为 true，表示处于加载状态
             this.loading = true;
-            this.onLoad();
+            this.onLoad(function () {
+                Toast("刷新成功");
+            });
         },
     },
 };
