@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        body,html{
+            font-size: 100px;
+        }
+        .red{
+            background-color: red;
+            width: 2rem;
+            height: 2rem;
+            font-size: 0.14rem;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <div class="red">
+        12121
+    </div>
+    
+</body>
+<script>
+    window.onresize = function(){//当窗口大小发生改变的时候 就会触发
+        // 750 下面 font-size 是100px   
+        let  windowWidth = document.documentElement.clientWidth;
+        // 750:100 = windowWidth :? 
+        let  fontSize  = 100*windowWidth/750;
+        document.body.style.fontSize = fontSize+"px";
+        document.documentElement.style.fontSize = fontSize+"px";
+
+
+    }
+
+</script>
+</html>
