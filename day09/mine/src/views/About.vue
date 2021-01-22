@@ -5,8 +5,9 @@
 </template>
 <style lang="scss" scoped>
 .about {
-    width: 500px;
+    width: 750px;
     height: 200px;
+    font-size: 16px;
     background-color: #000;
 }
 </style>
