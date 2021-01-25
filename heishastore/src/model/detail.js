@@ -1,14 +1,7 @@
-import axios from './axios';
+import { get } from './axios';
 
 export default {
-    moviesDetail: (params) => {
-        return axios({
-            method: "get",
-            url: "https://m.maizuo.com/gateway",
-            params,
-            headers: {
-                "X-Host": "mall.film-ticket.film.info"
-            }
-        })
+    lbImg: (id) => {
+        return get("pro/lbimg", { skusn: id });
     }
 }

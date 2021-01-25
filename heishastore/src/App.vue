@@ -29,7 +29,9 @@ export default {};
 </script>
 <style lang="scss">
 $fontColor: #00c65e;
-
+@function px($n) {
+    @return $n * (8/9);
+}
 html,
 body {
     width: 100%;
@@ -37,6 +39,7 @@ body {
 }
 body {
     font-size: 24px;
+    background-color: #f5f5f9;
 }
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -50,9 +53,10 @@ body {
     flex-direction: column;
     .com {
         flex: 1;
+        overflow-y: scroll;
     }
     #nav {
-        padding: 30px;
+        padding: px(30px);
         display: flex;
         a {
             flex: 1;
@@ -64,10 +68,10 @@ body {
                 color: $fontColor;
             }
             .iconfont {
-                font-size: 60px;
+                font-size: px(60px);
                 display: inline-block;
-                height: 60px;
-                width: 60px;
+                height: px(60px);
+                width: px(60px);
             }
         }
     }
