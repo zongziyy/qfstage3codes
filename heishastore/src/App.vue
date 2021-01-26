@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <router-view class="com" />
-        <div id="nav">
+        <div id="nav" v-show="flag">
             <router-link to="/">
                 <i class="iconfont icon-shouye"></i>
                 <p>首页</p>
@@ -25,7 +25,13 @@
 
 <script>
 import "./css/m-reset.css";
-export default {};
+export default {
+    computed: {
+        flag() {
+            return this.$store.state.navFlag;
+        },
+    },
+};
 </script>
 <style lang="scss">
 $fontColor: #00c65e;
