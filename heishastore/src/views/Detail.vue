@@ -1,7 +1,7 @@
 <template>
     <div class="detail">
         <div class="back">
-            <p class="backBtn"></p>
+            <p class="backBtn" @click="back"></p>
             <h1>商品详情</h1>
         </div>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
@@ -40,41 +40,70 @@
                         {{ item.rules | filterRules }}
                     </p>
                 </div>
-                <!-- <div class="sale" v-show="goodsOnSale.length > 1">
-                    <span>减价</span>
-                    <p>直降200元</p>
-                </div> -->
             </div>
             <div class="tradeIn">
                 <p>以旧换新</p>
             </div>
         </div>
-        <!-- <div class="select">
-            <van-sku
-                v-model="show"
-                :sku="sku"
-                :goods="goods"
-                :goods-id="goodsId"
-                :quota="quota"
-                :quota-used="quotaUsed"
-                :hide-stock="sku.hide_stock"
-                :message-config="messageConfig"
-                @buy-clicked="onBuyClicked"
-                @add-cart="onAddCartClicked"
-            />
-        </div> -->
-        <!-- <van-cell is-link @click="showPopup">展示弹出层</van-cell>
-        <van-popup v-model="show">内容</van-popup> -->
-        <div class="select">
-            <span class="xuanze">选择:</span
-            ><span class="selected"
-                >蓝色
-                <img src="../assets/go.png" alt="" />
+
+        <div class="select" @click="showb">
+            <span class="xuanze">选择: </span
+            ><span v-show="selectedVersion != ''">
+                {{ selectedVersion.join(" + ") }} x
+                {{ toshoppingcar.buyNum }}
             </span>
+            <img src="../assets/go.png" alt="" />
         </div>
+        <van-popup
+            v-model="showbottom"
+            closeable
+            close-icon="close"
+            position="bottom"
+            :style="{}"
+        >
+            <div class="top___1103h">
+                <div class="tu___m9Uz0">
+                    <img
+                        src="https://shop-1256119282.file.myqcloud.com/blackshark/20200403/20200403162002_574.png"
+                    />
+                </div>
+                <div class="xx___3GLAX">
+                    <h4>￥{{ goodsPrice * 1 - cutPrice * 1 }}</h4>
+                    <p>{{ goodsDetail.name }}</p>
+                </div>
+            </div>
+            <div
+                class="list___ohIFn"
+                v-for="(item, ind) in goodsDetail.attributes"
+                :key="item.anid"
+            >
+                <h4>{{ item.attrname }}</h4>
+                <p>
+                    <span
+                        :class="{
+                            selected: selectspan[ind] == index,
+                        }"
+                        v-for="(attr, index) in item.attrvals"
+                        :key="attr.avid"
+                        @click="selectThis(ind, index)"
+                        >{{ attr.avval }}</span
+                    >
+                </p>
+            </div>
+            <div class="list_1___3AgfM">
+                <h4>购买数量</h4>
+                <div class="step___3OZb0">
+                    <a @click="changeNum(buyNum, -1)">-</a
+                    ><input v-model="buyNum" @blur="inpNum(buyNum)" /><a
+                        @click="changeNum(buyNum, 1)"
+                        >+</a
+                    >
+                </div>
+            </div>
+            <div class="bottom___20FEb" @click="determine">确定</div>
+        </van-popup>
         <div class="select">
-            <span class="xuanze">商品评价</span
-            ><span class="selected">(656)</span>
+            <span class="xuanze">商品评价</span><span>(656)</span>
             <img src="../assets/go.png" alt="" />
             <span class="more">查看更多</span>
         </div>
@@ -93,40 +122,79 @@
                 v-for="item in detailList"
                 :title="item.title"
                 :key="item.id"
+                v-html="item.paramval"
             >
-                {{ item }}
+                {{}}
             </van-tab>
         </van-tabs>
+        <div class="blank"></div>
+        <div class="foot">
+            <div class="buy">
+                <div class="menuItem___3M3MV" @click="goindex">
+                    <img src="../assets/shouye.png" />
+                    <p>首页</p>
+                </div>
+                <div class="menuItem___3M3MV" @click="goshoppingcar">
+                    <img src="../assets/shoppingcar.png" />
+                    <p>购物车</p>
+                </div>
+                <div class="menuItem___3M3MV">
+                    <img src="../assets/kefu.png" />
+                    <p>客服</p>
+                </div>
+            </div>
+            <div class="buy">
+                <a class="addtocar" @click="addToShoppingCar">加入购物车</a
+                ><a class="buyNow">立即购买</a>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import detailModel from "../model/detail";
+import shoppingCarModel from "../model/shoppingCar";
+import { Toast } from "vant";
+
 // document.location = document.location;
 let that;
 export default {
     data() {
         return {
+            indexlocal: 0,
             detailList: [
                 {
                     id: 1,
                     title: "产品详情",
+                    paramval: `<div class="title">
+                                    <p class="category-title">商品详情</p>
+                                </div><div class='detailImgs'>`,
                 },
                 {
                     id: 2,
                     title: "规格参数",
+                    paramval: `<div class="title">
+                                    <p class="category-title">产品参数</p>
+                                </div><div class='paramsdetail'>`,
                 },
                 {
                     id: 3,
                     title: "购买须知",
+                    paramval: `<div class="title">
+                                    <p class="category-title">购买须知</p>
+                                </div><div class='mustKnow'>`,
                 },
             ],
+            toshoppingcar: {},
+            selectedVersion: [],
+            selectspan: [0, 0, 0],
+            buyNum: 1,
+            showbottom: false,
             active: 0,
             container: null,
             bannerImgList: [],
             goodsDetail: {},
             goodsOnSale: [],
             tradeIn: [],
-            saleRules: [],
             goodsPrice: 0,
             isOnSale: true,
             cutPrice: 0,
@@ -148,14 +216,13 @@ export default {
         let id = this.$route.params.id;
         detailModel.goodsOnSale(id).then((res) => {
             this.goodsOnSale = res.data.data;
-            this.isCutPrice = false;
+            this.isCutPrice = null;
             this.isGift = null;
             if (res.data.data) {
                 this.isOnSale = true;
                 res.data.data.forEach((item) => {
                     if (item.type == 1) {
                         this.isCutPrice = item;
-                        console.log(this.isCutPrice);
                         this.cutPrice = JSON.parse(item.rules).cutPrice;
                     }
                     if (item.type == 6) {
@@ -179,10 +246,24 @@ export default {
                 }
             });
         });
+
         detailModel
-            .goodsDecripes({ skusn: id, paramkey: "pro/detailinfo" })
+            .goodsDecripes({ skusn: id, paramkey: "infoContent" })
             .then((res) => {
-                console.log(res.data.data);
+                this.detailList[0].paramval +=
+                    res.data.data.paramval + `</div>`;
+            });
+        detailModel
+            .goodsDecripes({ skusn: id, paramkey: "paramContent" })
+            .then((res) => {
+                this.detailList[1].paramval +=
+                    res.data.data.paramval + `</div>`;
+            });
+        detailModel
+            .goodsDecripes({ skusn: id, paramkey: "noteContent" })
+            .then((res) => {
+                this.detailList[2].paramval +=
+                    res.data.data.paramval + `</div>`;
             });
     },
     beforeDestroy() {
@@ -192,7 +273,149 @@ export default {
         changePage(id) {
             this.selectedIndex = id;
         },
+        back() {
+            this.$router.history.go(-1);
+        },
+        showb() {
+            this.showbottom = true;
+        },
+        determine() {
+            this.showbottom = false;
+            this.selectedVersion = [];
+            this.toshoppingcar = {};
+            this.goodsDetail.attributes.forEach((item, index) => {
+                this.selectedVersion.push(
+                    item.attrvals[this.selectspan[index]].avval
+                );
+            });
+            this.toshoppingcar.selectedVersion = this.selectedVersion;
+            this.toshoppingcar.name = this.goodsDetail.name;
+            this.toshoppingcar.buyNum = this.buyNum;
+            this.toshoppingcar.price = this.goodsPrice * 1 - this.cutPrice * 1;
+            this.buyNum = 1;
+            // console.log(this.toshoppingcar);
+        },
+        selectThis(ind, index) {
+            this.selectspan.splice(ind, 1, index);
+        },
+        changeNum(num, n) {
+            if (n < 0 && num <= 1) {
+                Toast.fail("数量不能小于1哦");
+                return false;
+            }
+            this.buyNum += n;
+        },
+        inpNum(num) {
+            if (isNaN(num)) {
+                Toast.fail("请输入数字");
+                this.buyNum = 1;
+            } else {
+                if (num < 1) {
+                    Toast.fail("数量不能小于1哦");
+                    this.buyNum = 1;
+                }
+            }
+        },
+        addToShoppingCar() {
+            // localStorage.removeItem("username");
+            let username = localStorage.getItem("username");
+            // console.log(username);
+            if (username) {
+                this.toshoppingcar.username = username;
+                // console.log(username);
+                shoppingCarModel.query({ username: username }).then((res) => {
+                    let nowVersion = this.toshoppingcar.selectedVersion;
+                    if (res.data.length != 0) {
+                        if (nowVersion) {
+                            let id = 0;
+                            let nowNum = 0;
+                            // let nowVersion = this.toshoppingcar.selectedVersion;
+                            // console.log(res.data);
+                            res.data.forEach((item) => {
+                                let flag = nowVersion.every(
+                                    (nowitem, index) => {
+                                        return (
+                                            nowitem ==
+                                            item.selectedVersion[index]
+                                        );
+                                    }
+                                );
+                                // console.log(flag);
+                                if (flag) {
+                                    id = item.id;
+                                    nowNum =
+                                        item.buyNum + this.toshoppingcar.buyNum;
+                                }
+                            });
+                            if (nowNum) {
+                                // console.log(id, nowNum);
+                                shoppingCarModel
+                                    .addNum(id, {
+                                        buyNum: nowNum,
+                                    })
+                                    .then(() => {
+                                        Toast.success(
+                                            "添加成功，宝贝已经在购物车等你啦"
+                                        );
+                                    });
+                            } else {
+                                shoppingCarModel
+                                    .add({
+                                        ...this.toshoppingcar,
+                                    })
+                                    .then(() => {
+                                        Toast.success(
+                                            "添加成功，宝贝已经在购物车等你啦"
+                                        );
+                                    });
+                            }
+                        } else {
+                            Toast.fail("请先选择购买版本");
+                        }
+                    } else {
+                        if (nowVersion) {
+                            shoppingCarModel
+                                .add({ ...this.toshoppingcar })
+                                .then(() => {
+                                    Toast.success(
+                                        "添加成功，宝贝已经在购物车等你啦"
+                                    );
+                                });
+                        } else {
+                            Toast.fail("请先选择购买版本");
+                        }
+                    }
+                });
+            } else {
+                const toast = Toast.loading({
+                    duration: 0, // 持续展示 toast
+                    forbidClick: true,
+                    message: "3 秒后跳转登陆",
+                });
+
+                let second = 3;
+                const timer = setInterval(() => {
+                    second--;
+                    if (second) {
+                        toast.message = `${second} 秒后跳转至登陆`;
+                    } else {
+                        clearInterval(timer);
+                        Toast.clear();
+                        this.$router.history.push("/login");
+                    }
+                }, 1000);
+            }
+        },
+        goshoppingcar() {
+            this.$router.history.push("/shoppingcar");
+        },
+        goindex() {
+            this.$router.history.push({
+                name: "index",
+            });
+        },
     },
+
     filters: {
         filterRules: (list) => {
             // console.log(that);
@@ -204,7 +427,7 @@ export default {
                     .join("、");
             } else {
                 // console.log(this);
-                return that.saleRules.description;
+                return that.isCutPrice.description;
             }
         },
     },
@@ -221,6 +444,7 @@ export default {
         line-height: px(127px);
         position: relative;
         background-color: #fff;
+        border-bottom: 1px solid #999; /*no*/
         .backBtn {
             position: absolute;
             margin: auto;
@@ -353,10 +577,10 @@ export default {
     line-height: 1;
     font-size: px(36px);
     // margin-top: -0.02rem;
-    padding-left: px(45px);
-    padding-bottom: px(45px);
+    padding: 0 px(45px) px(45px);
     background: #fff;
     text-align: left;
+    margin-bottom: px(22.5px);
     .users {
         padding-top: px(45px);
         border-top: 1px solid #999; /*no*/
@@ -376,25 +600,266 @@ export default {
         font-size: px(36px);
     }
 }
-/deep/.van-sticky {
-    margin-top: px(22.5px);
-    background: #fff;
-    // height: px(120px);
-    padding: px(30px) 0;
-    border-bottom: 1px solid #d7d7d7; /*no*/
-    font-size: px(36px);
-    line-height: px(60px);
-    .van-tabs__wrap {
-        .van-tabs__nav--line {
-            display: flex;
-            .van-tab {
-                width: 33%;
-                font-size: px(36px);
-                span {
-                    display: inline-block;
+/deep/.van-tabs {
+    // width: 100%;
+    .van-sticky {
+        background: #fff;
+        // height: px(120px);
+        padding: px(30px) 0;
+        border-bottom: 1px solid #d7d7d7; /*no*/
+        font-size: px(36px);
+        line-height: px(60px);
+        .van-tabs__wrap {
+            height: px(70px);
+            .van-tabs__nav--line {
+                display: flex;
+                height: px(70px);
+                padding-bottom: px(10px);
+                .van-tab {
+                    width: 33%;
+                    font-size: px(36px);
+                    height: px(60px);
+                    line-height: px(60px);
+                    span {
+                        display: inline-block;
+                        line-height: 1;
+                    }
+                }
+                .van-tab--active {
+                    color: #00c65e;
+                }
+                .van-tabs__line {
+                    background-color: #00c65e;
+                    bottom: px(15px);
                 }
             }
         }
+    }
+    .van-tabs__content {
+        width: 100%;
+        .van-tab__pane {
+            width: 100%;
+            .title {
+                line-height: 1;
+                box-sizing: border-box;
+                font-size: px(48px);
+                text-align: center;
+                // height: px(48px) !important;
+                padding-top: px(70.5px);
+                padding-bottom: px(39px);
+                background-color: #f5f5f9;
+            }
+            .category-title {
+                position: relative;
+                display: inline-block;
+                font-weight: bolder;
+                color: #000;
+            }
+            .category-title::before,
+            .category-title::after {
+                content: "";
+                width: px(180px);
+                height: 1px; /*no*/
+                background: #333;
+                position: absolute;
+                top: px(27px);
+            }
+            .category-title::before {
+                left: px(-210px);
+            }
+            .category-title::after {
+                right: px(-210px);
+            }
+            > div {
+                background-color: #fff;
+                width: 100%;
+                padding-bottom: px(60px);
+                p {
+                    img {
+                        width: 100%;
+                    }
+                }
+            }
+            .paramsdetail {
+                background: #fff;
+                line-height: 1.4;
+                font-size: px(36px);
+                padding: px(45px);
+                text-align: left;
+            }
+            .mustKnow {
+                background: #fff;
+                line-height: 1.4;
+                font-size: px(36px);
+                padding: px(45px);
+                text-align: left;
+            }
+        }
+    }
+}
+.foot {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    background-color: #fff;
+    width: 100%;
+    height: px(150px);
+    z-index: 9;
+    .buy {
+        flex: 1;
+        display: flex;
+        .menuItem___3M3MV {
+            // width: 33.33%;
+            flex: 0.3333 1;
+            img {
+                width: px(60px);
+                height: px(60px);
+                margin-top: px(22.5px);
+            }
+            p {
+                font-size: px(33px);
+                color: #00000080;
+                margin: px(4.5px) 0;
+            }
+        }
+        .addtocar,
+        .buyNow {
+            flex: 1 1;
+            height: px(150px);
+            line-height: px(150px);
+            color: #fff;
+            background-color: #000000;
+            font-size: px(42px);
+        }
+        .buyNow {
+            background-color: #00c65e;
+        }
+    }
+}
+.blank {
+    width: 100%;
+    height: px(150px);
+}
+/deep/.van-popup {
+    .van-icon-close {
+        font-size: px(60px);
+    }
+    .van-icon-close::before {
+        width: px(60px);
+        height: px(60px);
+    }
+    .top___1103h {
+        line-height: 1;
+        font-size: px(36px);
+        padding: px(45px);
+        border-bottom: 1px solid #cccccc80; /*no*/
+        display: flex;
+        .tu___m9Uz0 {
+            width: px(277.5px);
+            height: px(277.5px);
+            margin-right: px(39px);
+            background: #999;
+            border-radius: px(12px);
+            img {
+                width: 100%;
+            }
+        }
+        .xx___3GLAX {
+            h4 {
+                line-height: 1;
+                padding-top: px(80px);
+                font-size: px(60px);
+                text-align: left;
+                font-weight: 600;
+                color: #00c65e;
+            }
+            p {
+                box-sizing: border-box;
+                padding-top: px(30px);
+                font-size: px(42px);
+            }
+        }
+    }
+    .list___ohIFn {
+        box-sizing: border-box;
+        font-size: px(36px);
+        margin-left: px(45px);
+        border-bottom: 1px solid #cccccc80; /*no*/
+        padding-top: px(51px);
+        padding-bottom: px(42px);
+        h4 {
+            line-height: 1;
+            color: #999;
+            font-weight: normal;
+            text-align: left;
+        }
+        p {
+            line-height: 1;
+            box-sizing: border-box;
+            font-size: px(36px);
+            padding-top: px(33px);
+            text-align: left;
+            span {
+                height: px(48px);
+                line-height: px(48px);
+                padding: 0 px(22.5px);
+                border-radius: 9999px;
+                display: inline-block;
+                margin-right: px(22.5px);
+                margin-bottom: px(22.5px);
+                color: #696969;
+                border: 1px solid #696969; /*no*/
+            }
+            .selected {
+                border: 1px solid #00c65e; /*no*/
+                color: #00c65e;
+            }
+        }
+    }
+    .list_1___3AgfM {
+        font-size: px(36px);
+        margin-left: px(45px);
+        padding-top: px(51px);
+        padding-bottom: px(42px);
+        display: flex;
+        line-height: px(60px);
+        h4 {
+            line-height: px(60px);
+            flex: 1 1;
+            font-size: px(42px);
+            color: #999;
+            font-weight: 400;
+            text-align: left;
+        }
+        .step___3OZb0 {
+            display: inline-block;
+            line-height: px(60px);
+            height: px(60px);
+            border: 1px solid #999999; /*no*/
+            margin-right: px(45px);
+            a {
+                height: px(60px);
+                width: px(60px);
+                line-height: px(60px);
+                box-sizing: border-box;
+                color: inherit;
+                background: transparent;
+                display: inline-block;
+            }
+            input {
+                border-left: 1px solid #999; /*no*/
+                border-right: 1px solid #999; /*no*/
+                width: px(60px);
+                text-align: center;
+            }
+        }
+    }
+    .bottom___20FEb {
+        font-size: px(42px);
+        height: px(135px);
+        line-height: px(135px);
+        color: #fff;
+        background: #00c65e;
     }
 }
 </style>

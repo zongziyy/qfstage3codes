@@ -41,7 +41,6 @@ export default {
             url: "http://store.blackshark.com/index/propos?position=mo_idx_img",
         }).then((res) => {
             this.picList = res.data.data;
-            console.log(this.picList);
         });
     },
 };

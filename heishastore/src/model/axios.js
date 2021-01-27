@@ -28,4 +28,12 @@ let patch = (url, data) => {
 
 }
 
-export { post, get, patch }
+let dele = (url, data) => {
+    return axios({
+        method: "detele",
+        url,
+        data
+    })
+
+}
+export { post, get, patch ,dele}

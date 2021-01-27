@@ -1,0 +1,52 @@
+{
+  "userinfo": [
+    {
+      "id": 1,
+      "username": "a123123",
+      "userpwd": "123456"
+    },
+    {
+      "username": "a123123a",
+      "userpwd": "qweqwe",
+      "id": 2
+    }
+  ],
+  "shoppingcar": [
+    {
+      "selectedVersion": [
+        "12GB+128GB",
+        "铠甲灰",
+        "官方标配"
+      ],
+      "name": "腾讯黑鲨游戏手机3",
+      "buyNum": 6,
+      "price": 2999,
+      "username": "a123123",
+      "id": 2
+    },
+    {
+      "selectedVersion": [
+        "12GB+128GB",
+        "星辰银",
+        "官方标配"
+      ],
+      "name": "腾讯黑鲨游戏手机3",
+      "buyNum": 3,
+      "price": 2999,
+      "username": "a123123",
+      "id": 3
+    },
+    {
+      "selectedVersion": [
+        "8GB+128GB",
+        "星辰银",
+        "官方标配"
+      ],
+      "name": "腾讯黑鲨游戏手机3",
+      "buyNum": 1,
+      "price": 2999,
+      "username": "a123123",
+      "id": 4
+    }
+  ]
+}
