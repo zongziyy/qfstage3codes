@@ -29,7 +29,7 @@ const routes = [{
     {
         path: '/shoppingcar',
         name: 'shoppingcar',
-        mate: {
+        meta: {
             isLogin: true
         },
         // route level code-splitting
@@ -71,9 +71,9 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach = (to, from, next) => {
+router.beforeEach((to, from, next) => {
     document.title = to.meta.title || "mzl";
-    if (to.mate && to.mate.isLogin) {
+    if (to.meta && to.meta.isLogin) {
         if (window.localStorage.getItem("username")) {
             next()
         } else {
@@ -84,7 +84,7 @@ router.beforeEach = (to, from, next) => {
     } else {
         next()
     }
-}
+})
 
 
 export default router

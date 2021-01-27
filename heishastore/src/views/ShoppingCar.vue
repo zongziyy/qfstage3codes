@@ -1,3 +1,3 @@
 <template>
-    <div class="shoppingcar">购物车</div>
+    <div class="shoppingcar"></div>
 </template>

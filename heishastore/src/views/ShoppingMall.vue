@@ -68,6 +68,8 @@ export default {
     },
 };
 </script>
+
+
 <style lang="scss" scoped>
 @function px($n) {
     @return $n * (8/9);

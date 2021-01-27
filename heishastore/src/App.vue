@@ -38,6 +38,7 @@ $fontColor: #00c65e;
 @function px($n) {
     @return $n * (8/9);
 }
+
 html,
 body {
     width: 100%;

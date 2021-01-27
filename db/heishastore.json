@@ -1,0 +1,19 @@
+{
+  "userinfo": [
+    {
+      "id": 1,
+      "username": "a123123",
+      "userpwd": "123456"
+    },
+    {
+      "username": "a123123a",
+      "userpwd": "qweqwe",
+      "id": 2
+    }
+  ],
+  "shoppingcar":[
+    {
+      "id":1
+    }
+  ]
+}
