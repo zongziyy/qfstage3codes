@@ -52,7 +52,7 @@
                 {{ selectedVersion.join(" + ") }} x
                 {{ toshoppingcar.buyNum }}
             </span>
-            <img src="../assets/go.png" alt="" />
+            <img src="http://morzu.site:8080/img/service/go.png" alt="" />
         </div>
         <van-popup
             v-model="showbottom"
@@ -104,19 +104,27 @@
         </van-popup>
         <div class="select">
             <span class="xuanze">商品评价</span><span>(656)</span>
-            <img src="../assets/go.png" alt="" />
+            <img src="http://morzu.site:8080/img/service/go.png" alt="" />
             <span class="more">查看更多</span>
         </div>
+
         <div class="contexts">
             <div class="users">
+                <img :src="avatar" alt="" />
+                <span class="username">{{ nickname }}</span>
+            </div>
+            <p>{{ content }}</p>
+        </div>
+        <!-- <div class="contexts">
+            <div class="users">
                 <img
-                    src="http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTIIDUnsfAibxPRRexpQv5zpCeU4s2L8MUEvT8Zsy7vMwh77A383hso17m8IcibkQabRyibYvIo4ZA9IQ/132"
+                    :src="avatar"
                     alt=""
                 />
-                <span class="username">你的身边有我</span>
+                <span class="username">{{nickname}}/span>
             </div>
-            <p>？？？？</p>
-        </div>
+            <p>{{content}}</p>
+        </div> -->
         <van-tabs v-model="active" scrollspy sticky>
             <van-tab
                 v-for="item in detailList"
@@ -131,15 +139,17 @@
         <div class="foot">
             <div class="buy">
                 <div class="menuItem___3M3MV" @click="goindex">
-                    <img src="../assets/shouye.png" />
+                    <img src="http://morzu.site:8080/img/service/shouye.png" />
                     <p>首页</p>
                 </div>
                 <div class="menuItem___3M3MV" @click="goshoppingcar">
-                    <img src="../assets/shoppingcar.png" />
+                    <img
+                        src="http://morzu.site:8080/img/service/shoppingcar.png"
+                    />
                     <p>购物车</p>
                 </div>
                 <div class="menuItem___3M3MV">
-                    <img src="../assets/kefu.png" />
+                    <img src="http://morzu.site:8080/img/service/kefu.png" />
                     <p>客服</p>
                 </div>
             </div>
@@ -203,6 +213,10 @@ export default {
             isCutPrice: null,
             show: false,
             selectedIndex: 1,
+            commentList: [],
+            avatar: "",
+            nickname: "",
+            content: "",
         };
     },
     beforeCreate() {
@@ -265,6 +279,16 @@ export default {
                 this.detailList[2].paramval +=
                     res.data.data.paramval + `</div>`;
             });
+        detailModel
+            .commentList({ pid: this.goodsDetail.pid, skusn: id })
+            .then((res) => {
+                this.commentList = res.data.data;
+                // console.log(this.commentList);
+                this.avatar = this.commentList[0].avatar;
+                this.nickname = this.commentList[0].nickname;
+                this.content = this.commentList[0].content;
+                // console.log(this.avatar, this.nickname, this.content);
+            });
     },
     beforeDestroy() {
         this.$store.commit("changeFlag", true);
@@ -280,6 +304,7 @@ export default {
             this.showbottom = true;
         },
         determine() {
+            // let id = this.$route.params.id;
             this.showbottom = false;
             this.selectedVersion = [];
             this.toshoppingcar = {};
@@ -294,6 +319,7 @@ export default {
             this.toshoppingcar.price = this.goodsPrice * 1 - this.cutPrice * 1;
             this.toshoppingcar.imgurl = this.goodsDetail.imgurl;
             this.toshoppingcar.ischecked = false;
+            // this.toshoppingcar.skusn = id;
             this.buyNum = 1;
             // console.log(this.toshoppingcar);
         },
@@ -324,6 +350,7 @@ export default {
             // console.log(username);
             if (username) {
                 this.toshoppingcar.username = username;
+                // let id = this.$route.params.id;
                 // console.log(username);
                 shoppingCarModel.query({ username: username }).then((res) => {
                     let nowVersion = this.toshoppingcar.selectedVersion;
@@ -455,7 +482,8 @@ export default {
             left: px(30px);
             width: px(80px);
             height: px(80px);
-            background: url(../assets/back.png) center center no-repeat;
+            background: url("http://morzu.site:8080/img/service/back.png")
+                center center no-repeat;
             background-size: px(51px);
         }
         h1 {
@@ -588,6 +616,9 @@ export default {
         border-top: 1px solid #999; /*no*/
         line-height: px(78px);
         font-size: px(42px);
+        .username {
+            font-size: px(36px);
+        }
         img {
             width: px(78px);
             height: px(78px);

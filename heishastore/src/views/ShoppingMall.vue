@@ -1,5 +1,13 @@
 <template>
     <div class="shoppingmall">
+        <div class="header">
+            <h1 class="logo">
+                <img
+                    src="http://morzu.site:8080/img/service/heishalogo.png"
+                    alt=""
+                />
+            </h1>
+        </div>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
             <van-swipe-item v-for="(item, index) in bannerImg" :key="index">
                 <img :src="item.showimg" alt="" />
@@ -74,9 +82,6 @@ export default {
 @function px($n) {
     @return $n * (8/9);
 }
-.shoppingmall {
-    background-color: #f5f5f9;
-}
 .my-swipe {
     .van-swipe__indicators {
         width: 100%;
@@ -98,73 +103,90 @@ export default {
         }
     }
 }
-.goods {
-    .category {
-        .title {
-            line-height: 1;
-            box-sizing: border-box;
-            font-size: px(48px);
+.shoppingmall {
+    background-color: #f5f5f9;
+    .header {
+        width: 100%;
+        height: px(150px);
+        padding: px(30px) 0;
+        background-color: #000;
+        .logo {
+            height: 100%;
             text-align: center;
-            // height: px(48px) !important;
-            padding-top: px(70.5px);
-            padding-bottom: px(39px);
+            img {
+                height: 100%;
+            }
         }
-        .category-title {
-            position: relative;
-            display: inline-block;
-            font-weight: bolder;
-            color: #000;
-        }
-        .category-title::before,
-        .category-title::after {
-            content: "";
-            width: px(180px);
-            height: 1px; /*no*/
-            background: #333;
-            position: absolute;
-            top: px(27px);
-        }
-        .category-title::before {
-            left: px(-210px);
-        }
-        .category-title::after {
-            right: px(-210px);
-        }
-        .goodsls {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            .eachgoods {
-                background-color: #fff;
-                width: 49%;
+    }
+    .goods {
+        .category {
+            .title {
+                line-height: 1;
+                box-sizing: border-box;
+                font-size: px(48px);
                 text-align: center;
-                margin-bottom: px(30px);
-                img {
-                    width: px(360px);
-                    height: px(360px);
-                    margin: px(30px) 0;
-                }
-                .goodsName {
-                    width: 90%;
-                    line-height: 1;
-                    font-size: px(48px);
-                    margin: 0 auto;
-                    color: #000;
-                }
-                .goodsMsg {
-                    width: 90%;
-                    overflow: hidden;
-                    padding: px(22.5px) px(40px) 0;
-                    margin: 0 auto;
-                    color: #999;
-                }
-                .goodsPrice {
-                    line-height: 1;
-                    font-weight: bolder;
-                    padding: px(45px) 0;
-                    color: #00c65e;
-                    font-size: px(48px);
-                    display: block;
+                // height: px(48px) !important;
+                padding-top: px(70.5px);
+                padding-bottom: px(39px);
+            }
+            .category-title {
+                position: relative;
+                display: inline-block;
+                font-weight: bolder;
+                color: #000;
+            }
+            .category-title::before,
+            .category-title::after {
+                content: "";
+                width: px(180px);
+                height: 1px; /*no*/
+                background: #333;
+                position: absolute;
+                top: px(27px);
+            }
+            .category-title::before {
+                left: px(-210px);
+            }
+            .category-title::after {
+                right: px(-210px);
+            }
+            .goodsls {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                .eachgoods {
+                    background-color: #fff;
+                    width: 49%;
+                    text-align: center;
+                    margin-bottom: px(30px);
+                    img {
+                        width: px(360px);
+                        height: px(360px);
+                        margin: px(30px) 0;
+                    }
+                    .goodsName {
+                        width: 90%;
+                        font-size: px(48px);
+                        height: px(52px);
+                        line-height: px(52px);
+                        margin: 0 auto;
+                        color: #000;
+                    }
+                    .goodsMsg {
+                        width: 90%;
+                        overflow: hidden;
+                        padding: px(22.5px) px(40px) 0;
+                        margin: 0 auto;
+                        color: #999;
+                    }
+                    .goodsPrice {
+                        line-height: 1;
+                        font-weight: bolder;
+                        padding: px(45px) 0;
+                        color: #00c65e;
+                        font-size: px(48px);
+                        display: block;
+                    }
                 }
             }
         }

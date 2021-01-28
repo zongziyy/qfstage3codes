@@ -8,20 +8,32 @@
         <div class="footer">
             <div class="service">
                 <div class="service-imgs">
-                    <img src="../assets/7tian.png" alt="" />
+                    <img
+                        src="http://morzu.site:8080/img/service/7tian.png"
+                        alt=""
+                    />
                     <p>7天无理由退货</p>
                 </div>
                 <div class="service-imgs">
-                    <img src="../assets/15tian.png" alt="" />
+                    <img
+                        src="http://morzu.site:8080/img/service/15tian.png"
+                        alt=""
+                    />
                     <p>15天无理由换货</p>
                 </div>
                 <div class="service-imgs">
-                    <img src="../assets/bao.png" alt="" />
+                    <img
+                        src="http://morzu.site:8080/img/service/bao.png"
+                        alt=""
+                    />
                     <p>满99元包邮</p>
                 </div>
             </div>
             <p class="phone">400-015-8899</p>
             <p class="service-time">热线服务时间: 09:00 - 24：00</p>
+            <van-button class="sub" round block @click="exitMall"
+                >逛逛商城</van-button
+            >
         </div>
     </div>
 </template>
@@ -42,6 +54,11 @@ export default {
         }).then((res) => {
             this.picList = res.data.data;
         });
+    },
+    methods: {
+        exitMall() {
+            this.$router.history.push("/mall");
+        },
     },
 };
 </script>
@@ -65,6 +82,7 @@ export default {
         margin-top: 89px;
         padding-top: 82px;
         text-align: center;
+        padding-bottom: px(90px);
         .service {
             display: flex;
             .service-imgs {
@@ -86,6 +104,18 @@ export default {
             // height: 75px;
             line-height: 75px;
         }
+    }
+    /deep/.sub {
+        font-size: px(40px);
+        border: none;
+        height: px(130px);
+        width: px(750px);
+        background: #00c65e;
+        color: #fff;
+        border-radius: px(999px);
+        height: px(120px);
+        margin: 0 auto;
+        margin-top: px(75px);
     }
 }
 </style>

@@ -35,6 +35,16 @@
                 </div>
             </div>
         </div>
+        <div class="shoppingcarnone" v-show="shoppingList == ''">
+            <img
+                src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fku.90sjimg.com%2Felement_origin_min_pic%2F17%2F05%2F23%2F0d2019a7ca7937adaf34a3b15fd7b92e.jpg&refer=http%3A%2F%2Fku.90sjimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614434319&t=1652fa5d9e1f7330ded503d905879601"
+                alt=""
+            />
+            <p>您的购物车还是空的,去逛逛吧</p>
+            <van-button class="sub" round block @click="exitMall"
+                >逛逛商城</van-button
+            >
+        </div>
         <div class="pay">
             <div class="checkall">
                 <van-checkbox
@@ -132,7 +142,19 @@ export default {
             }
             this.patch({ id, data: { buyNum: num + n } });
         },
-        inpNum() {},
+        inpNum(id, num) {
+            if (isNaN(num)) {
+                Toast.fail("请输入数字");
+                this.patch({ id, data: { buyNum: 1 } });
+            } else {
+                if (num < 1) {
+                    Toast.fail("数量不能小于1哦");
+                    this.patch({ id, data: { buyNum: 1 } });
+                } else {
+                    this.patch({ id, data: { buyNum: num } });
+                }
+            }
+        },
         checkall(flag) {
             // console.log(flag);
             this.shoppingList.forEach((item) => {
@@ -150,12 +172,13 @@ export default {
                     message: "确认删除?",
                 })
                     .then(() => {
-                        console.log(1);
+                        let arr = [];
                         this.shoppingList.forEach((item) => {
                             if (item.ischecked) {
-                                this.del(item.id);
+                                arr.push(item.id);
                             }
                         });
+                        this.del(arr);
                     })
                     .catch(() => {
                         // on cancel
@@ -166,11 +189,13 @@ export default {
         },
         jiesuan() {
             if (this.shoppingList.some((item) => item.ischecked)) {
+                let arr = [];
                 this.shoppingList.forEach((item) => {
                     if (item.ischecked) {
-                        this.del(item.id);
+                        arr.push(item.id);
                     }
                 });
+                this.del(arr);
                 const toast = Toast.loading({
                     duration: 0, // 持续展示 toast
                     forbidClick: true,
@@ -192,6 +217,9 @@ export default {
                 Toast.fail("您还没有选中商品哦");
             }
         },
+        exitMall() {
+            this.$router.history.push("/mall");
+        },
     },
 };
 </script>
@@ -202,6 +230,32 @@ export default {
 }
 
 .shoppingcar {
+    .shoppingcarnone {
+        padding-top: px(30px);
+        text-align: center;
+        img {
+            width: px(500px);
+            height: px(500px);
+        }
+        p {
+            font-size: px(42px);
+            font-weight: 600;
+            color: #000;
+        }
+        /deep/.sub {
+            width: px(288px);
+            line-height: px(97.5px);
+            height: px(97.5px);
+            background: #00c65e;
+            color: #fff;
+            font-size: px(36px);
+            display: block;
+            margin: 0 auto;
+            margin-top: px(90px);
+            border-radius: px(9999px);
+            border: none;
+        }
+    }
     .back {
         height: px(127px);
         line-height: px(127px);
@@ -216,7 +270,8 @@ export default {
             left: px(30px);
             width: px(80px);
             height: px(80px);
-            background: url(../assets/back.png) center center no-repeat;
+            background: url("http://morzu.site:8080/img/service/back.png")
+                center center no-repeat;
             background-size: px(51px);
         }
         h1 {

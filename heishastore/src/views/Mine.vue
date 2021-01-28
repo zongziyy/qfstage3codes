@@ -17,7 +17,7 @@
                 <p class="title">{{ i.title }}</p>
             </div>
         </div>
-        <div style="margin: 16px">
+        <div style="margin: 20px; margin-top: 30px">
             <van-button class="sub" round block type="info" @click="exitLogin"
                 >退出登录</van-button
             >
@@ -36,27 +36,32 @@ export default {
                     items: [
                         {
                             id: 1,
-                            icon: "../assets/icon1.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon1.png",
                             title: "我的订单",
                         },
                         {
                             id: 2,
-                            icon: "../assets/icon2.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon2.png",
                             title: "我的优购码",
                         },
                         {
                             id: 3,
-                            icon: "../assets/icon13.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon3.png",
                             title: "我的优惠券",
                         },
                         {
                             id: 4,
-                            icon: "../assets/icon4.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon4.png",
                             title: "我的评价",
                         },
                         {
                             id: 5,
-                            icon: "../assets/icon5.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon5.png",
                             title: "我的预约",
                         },
                     ],
@@ -67,7 +72,8 @@ export default {
                     items: [
                         {
                             id: 1,
-                            icon: "static/dizhi.0c07e68d.png",
+                            icon:
+                                "http://store.blackshark.com/m/static/dizhi.0c07e68d.png",
                             title: "收货地址",
                         },
                     ],
@@ -77,7 +83,8 @@ export default {
                     items: [
                         {
                             id: 1,
-                            icon: "../assets/icon6.png",
+                            icon:
+                                "http://morzu.site:8080/img/service/icon6.png",
                             title: "售后服务",
                         },
                     ],
@@ -87,7 +94,8 @@ export default {
                     items: [
                         {
                             id: 1,
-                            icon: "static/my_6.0844177d.png",
+                            icon:
+                                "http://store.blackshark.com/m/static/my_6.0844177d.png",
                             title: "设置",
                         },
                     ],
@@ -167,7 +175,8 @@ export default {
                 font-size: px(42px);
                 color: #333;
                 padding-right: px(42px);
-                background: url(../assets/go.png) right center no-repeat;
+                background: url("http://morzu.site:8080/img/service/go.png")
+                    right center no-repeat;
                 background-size: px(27px) px(37.5px);
                 background-origin: content-box;
             }

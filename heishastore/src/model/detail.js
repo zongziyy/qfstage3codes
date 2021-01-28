@@ -12,5 +12,8 @@ export default {
     },
     goodsDecripes: (params) => {
         return get("pro/detailinfo", params)
+    },
+    commentList: (params) => {
+        return get("pro/commentList", params)
     }
 }

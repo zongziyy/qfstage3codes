@@ -26,5 +26,23 @@
       "username": "a123123",
       "id": 2
     }
-  ]
+  ],
+  
+    "goodsInfo": [
+      {
+        "goodsName": "第三代a",
+        "goodsRoom": "客厅",
+        "source": "阿萨德a",
+        "price": "是的",
+        "id": 1
+      },
+      {
+        "goodsName": "小米",
+        "goodsRoom": "客厅",
+        "source": "小米官网",
+        "price": "2933",
+        "id": 2
+      }
+    ]
+  
 }

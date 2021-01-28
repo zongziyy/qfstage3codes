@@ -36,4 +36,14 @@ let dele = (url, data) => {
     })
 
 }
+
+// async function remove(arr) {
+//     for (let i = 0; i < arr.length; i++) {
+//         await axios({
+//             method: "delete",
+//             url: "http://49.235.108.109:3333/shoppingcar/" + arr[i]
+//         })
+//     }
+
+// }
 export { post, get, patch, dele }

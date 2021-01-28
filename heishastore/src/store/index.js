@@ -42,7 +42,7 @@ export default new Vuex.Store({
             })
         },
         del(context, payload) {
-            shoppingcarrequest.del(payload).then(() => {
+            shoppingcarrequest.remove(payload).then(() => {
                 let username = localStorage.getItem("username")
                 // console.log(username)
                 context.dispatch("query", { username })
