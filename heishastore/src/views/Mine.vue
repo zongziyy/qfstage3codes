@@ -1,246 +1,183 @@
 <template>
     <div class="mine">
-        <main>
-            <div class="login">
-                <img
-                    src="https://bsaccount-1256119282.cos.ap-chengdu.myqcloud.com/Avatar.png"
-                    alt=""
-                />
-                <a href="">注册</a>
-                <a href="">登录</a>
-                <a href="">黑鲨会员</a>
+        <div class="header">
+            <div class="banner">
+                <div class="touxiang">
+                    <img
+                        src="https://bsaccount-1256119282.cos.ap-chengdu.myqcloud.com/Avatar.png"
+                        alt=""
+                    />
+                </div>
+                <p class="username">你好,{{ username }}</p>
             </div>
-            <div class="title">
-                <h2>我的订单</h2>
-                <a href="">查看全部订单 ></a>
+        </div>
+        <div class="lists" v-for="(item, index) in list" :key="index">
+            <div class="item" v-for="i in item.items" :key="i.id">
+                <div class="icon"><img :src="i.icon" alt="" /></div>
+                <p class="title">{{ i.title }}</p>
             </div>
-            <ul class="myindent">
-                <li>
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>待付款</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>待发货</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>待收货</p>
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>待评价</p>
-                    </a>
-                </li>
-            </ul>
-            <div class="title">
-                <h2>常用工具</h2>
-            </div>
-            <ul class="myindent tools">
-                <li class="red">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>地址管理</p>
-                    </a>
-                </li>
-                <li class="red">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>我的优惠券</p>
-                    </a>
-                </li>
-                <li class="red">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>我的预约</p>
-                    </a>
-                </li>
-                <li class="red">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>我的拼团</p>
-                    </a>
-                </li>
-                <li class="blue">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>售后服务</p>
-                    </a>
-                </li>
-                <li class="blue">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>数字评测</p>
-                    </a>
-                </li>
-                <li class="blue">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>邀友有奖</p>
-                    </a>
-                </li>
-                <li class="blue">
-                    <a href="">
-                        <i class="iconfont icon-jilu"></i>
-                        <p>文章收藏</p>
-                    </a>
-                </li>
-            </ul>
-        </main>
+        </div>
+        <div style="margin: 16px">
+            <van-button class="sub" round block type="info" @click="exitLogin"
+                >退出登录</van-button
+            >
+        </div>
     </div>
 </template>
 
-<style scoped>
-header {
-    font-size: 0.38rem;
-    height: 0.85rem;
-    line-height: 0.85rem;
-    text-align: center;
-    display: flex;
-    color: #fff;
-    padding: 0 0.28rem;
-    justify-content: space-between;
-    background: linear-gradient(90deg, #09d166, #00bd58);
-}
-header,
-footer {
-    flex-shrink: 0;
-}
-main {
-    flex-grow: 1;
-    overflow-y: scroll;
-    background-color: #efeff4;
+<script>
+export default {
+    data() {
+        return {
+            username: "zongzi",
+            list: [
+                {
+                    name: "list1",
+                    items: [
+                        {
+                            id: 1,
+                            icon: "../assets/icon1.png",
+                            title: "我的订单",
+                        },
+                        {
+                            id: 2,
+                            icon: "../assets/icon2.png",
+                            title: "我的优购码",
+                        },
+                        {
+                            id: 3,
+                            icon: "../assets/icon13.png",
+                            title: "我的优惠券",
+                        },
+                        {
+                            id: 4,
+                            icon: "../assets/icon4.png",
+                            title: "我的评价",
+                        },
+                        {
+                            id: 5,
+                            icon: "../assets/icon5.png",
+                            title: "我的预约",
+                        },
+                    ],
+                },
+
+                {
+                    name: "list2",
+                    items: [
+                        {
+                            id: 1,
+                            icon: "static/dizhi.0c07e68d.png",
+                            title: "收货地址",
+                        },
+                    ],
+                },
+                {
+                    name: "list3",
+                    items: [
+                        {
+                            id: 1,
+                            icon: "../assets/icon6.png",
+                            title: "售后服务",
+                        },
+                    ],
+                },
+                {
+                    name: "list4",
+                    items: [
+                        {
+                            id: 1,
+                            icon: "static/my_6.0844177d.png",
+                            title: "设置",
+                        },
+                    ],
+                },
+            ],
+        };
+    },
+    created() {
+        this.username = localStorage.getItem("username");
+    },
+    methods: {
+        exitLogin() {
+            localStorage.removeItem("username");
+            this.$router.history.push("/");
+        },
+    },
+};
+</script>
+
+<style lang="scss" scoped>
+@function px($n) {
+    @return $n * (8/9);
 }
 
-main .login {
-    line-height: 1.7rem;
-    font-size: 0;
-    padding-left: 0.3rem;
-    background: linear-gradient(90deg, #09d166, #00bd58);
-    position: relative;
-}
-main .login img {
-    width: 50px;
-    vertical-align: middle;
-}
-main .login a {
-    display: inline-block;
-    font-size: 0.32rem;
-    vertical-align: middle;
-    color: #fff;
-    width: 1.07rem;
-    line-height: 0.52rem;
-    text-align: center;
-}
-main .login a:last-of-type {
-    width: 1.94rem;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    height: 0.52rem;
-    margin: auto;
-    border-radius: 999rem 0 0 999rem;
-    /* float: right; */
-    font-size: 0.26rem;
-    background: linear-gradient(90deg, #009c49, #19eb7b);
-}
-
-.title {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 0.2rem;
-    line-height: 0.87rem;
-    height: 0.87rem;
-    border-top: 1px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
-    background-color: #fff;
-}
-.title h2 {
-    border-left: 0.08rem solid #e94544;
-    text-indent: 0.14rem;
-    line-height: 0.3rem;
-    height: 0.3rem;
-    font-size: 0.3rem;
-}
-.title a {
-    color: #999;
-    font-size: 0.24rem;
-}
-
-.myindent {
-    background-color: #fff;
-}
-.myindent {
-    display: flex;
-    margin-bottom: 0.2rem;
-}
-.myindent li {
-    width: 25%;
-    text-align: center;
-    padding: 0.3rem 0;
-}
-.myindent li a {
-    display: inline-block;
-    height: 100%;
-}
-.myindent li .iconfont {
-    font-size: 0.45rem;
-    display: inline-block;
-    line-height: 0.8rem;
-}
-.myindent li p {
-    font-size: 0.25rem;
-    line-height: 0.25rem;
-}
-
-.tools {
-    flex-wrap: wrap;
-}
-.tools .red .iconfont {
-    color: #fb7865;
-}
-.tools .blue .iconfont {
-    color: #008ee7;
-}
-
-footer ul {
-    display: flex;
-    border-top: 0.02rem solid #cdcdcd;
-}
-footer ul li {
-    width: 50%;
-    height: 0.98rem;
-    text-align: center;
-}
-footer ul li a {
-    display: block;
-    width: 100%;
-    height: 100%;
-}
-footer ul li .iconfont {
-    font-size: 0.4rem;
-    display: inline-block;
-    height: 0.4rem;
-    margin-top: 0.15rem;
-    line-height: 0.4rem;
-}
-footer ul li p {
-    font-size: 0.18rem;
-    line-height: 0.39rem;
-}
-footer ul li:hover {
-    color: #fe5466;
-}
-footer ul li:last-of-type {
-    color: #fe5466;
+.mine {
+    padding-bottom: px(180px);
+    .header {
+        width: 100%;
+        background-color: #fff;
+        height: px(450px);
+        .banner {
+            box-sizing: border-box;
+            // height: px(180px);
+            padding: px(135px) px(42px) 0 px(45px);
+            margin-bottom: px(22.5px);
+            display: flex;
+            align-items: center;
+            .touxiang {
+                width: px(180px);
+                height: px(180px);
+                img {
+                    width: 100%;
+                }
+            }
+            .username {
+                padding-left: px(45px);
+                font-size: px(36px);
+                font-weight: 600;
+            }
+        }
+    }
+    .lists {
+        background: #fff;
+        margin-top: px(22.5px);
+        .item {
+            height: px(143px);
+            color: #333;
+            &:not(:last-of-type) {
+                border-bottom: 1px solid#dbdbe0; /*no*/
+            }
+            display: flex;
+            .icon {
+                width: px(144px);
+                height: px(144px);
+                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                img {
+                    width: px(54px);
+                }
+            }
+            .title {
+                flex: 1;
+                line-height: px(133px);
+                text-align: left;
+                font-size: px(42px);
+                color: #333;
+                padding-right: px(42px);
+                background: url(../assets/go.png) right center no-repeat;
+                background-size: px(27px) px(37.5px);
+                background-origin: content-box;
+            }
+        }
+    }
+    /deep/.sub {
+        background-color: #fc2f2f;
+        font-size: px(45px);
+        border: none;
+        height: px(130px);
+    }
 }
 </style>

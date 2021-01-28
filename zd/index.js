@@ -1,8 +1,4 @@
-import axios from "axios";
-
-axios.defaults.baseURL = "http://store.blackshark.com/";
-
-export default axios;
+import axios from "./axios"
 
 let post = (url, data) => {
     return axios({
@@ -25,15 +21,13 @@ let patch = (url, data) => {
         url,
         data
     })
-
 }
-
-let dele = (url, data) => {
-    return axios({
-        method: "delete",
+let  del=(url,data)=>{
+    return  axios({
+        method:"del",
         url,
         data
-    })
-
+    })}
+export {
+    post, get, patch, del
 }
-export { post, get, patch, dele }

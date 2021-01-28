@@ -292,6 +292,8 @@ export default {
             this.toshoppingcar.name = this.goodsDetail.name;
             this.toshoppingcar.buyNum = this.buyNum;
             this.toshoppingcar.price = this.goodsPrice * 1 - this.cutPrice * 1;
+            this.toshoppingcar.imgurl = this.goodsDetail.imgurl;
+            this.toshoppingcar.ischecked = false;
             this.buyNum = 1;
             // console.log(this.toshoppingcar);
         },

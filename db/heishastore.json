@@ -14,39 +14,17 @@
   "shoppingcar": [
     {
       "selectedVersion": [
-        "12GB+128GB",
+        "12GB+256GB",
         "铠甲灰",
         "官方标配"
       ],
       "name": "腾讯黑鲨游戏手机3",
-      "buyNum": 6,
-      "price": 2999,
+      "buyNum": 2,
+      "price": 2799,
+      "imgurl": "https://shop-1256119282.file.myqcloud.com/blackshark/20200403/20200403155418_409.png",
+      "ischecked": false,
       "username": "a123123",
       "id": 2
-    },
-    {
-      "selectedVersion": [
-        "12GB+128GB",
-        "星辰银",
-        "官方标配"
-      ],
-      "name": "腾讯黑鲨游戏手机3",
-      "buyNum": 3,
-      "price": 2999,
-      "username": "a123123",
-      "id": 3
-    },
-    {
-      "selectedVersion": [
-        "8GB+128GB",
-        "星辰银",
-        "官方标配"
-      ],
-      "name": "腾讯黑鲨游戏手机3",
-      "buyNum": 1,
-      "price": 2999,
-      "username": "a123123",
-      "id": 4
     }
   ]
 }

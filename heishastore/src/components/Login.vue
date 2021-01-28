@@ -67,7 +67,7 @@ export default {
                 .then((res) => {
                     if (res.data != "") {
                         console.log(res.data);
-                        Toast.success("密码正确,登陆中");
+                        Toast.success("登陆成功");
                         localStorage.setItem("username", res.data[0].username);
                         console.log(this.$router.history);
                         this.$router.history.go(-1);
