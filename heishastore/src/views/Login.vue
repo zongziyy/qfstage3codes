@@ -27,6 +27,7 @@
                 >隐私条款</a
             >
         </div>
+        <div class="back" @click="back"></div>
     </div>
 </template>
 
@@ -76,6 +77,9 @@ export default {
                 this.com = "login";
                 this.msg = "已有帐号?去登录";
             }
+        },
+        back() {
+            this.$router.history.go(-1);
         },
     },
 };
@@ -164,6 +168,16 @@ export default {
         a {
             color: #00d766;
         }
+    }
+    .back {
+        background: url("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2616280914,2729353210&fm=26&gp=0.jpg")
+            no-repeat center center;
+        background-size: 101% 101%;
+        height: px(160px);
+        width: px(160px);
+        margin: 0 auto;
+        margin-top: px(200px);
+        border-radius: px(99999px);
     }
 }
 </style>

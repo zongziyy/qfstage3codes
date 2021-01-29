@@ -102,8 +102,9 @@
             </div>
             <div class="bottom___20FEb" @click="determine">确定</div>
         </van-popup>
-        <div class="select">
-            <span class="xuanze">商品评价</span><span>(656)</span>
+        <div class="select" @click="learnMore">
+            <span class="xuanze">商品评价</span
+            ><span>({{ commentList.length }})</span>
             <img src="http://morzu.site:8080/img/service/go.png" alt="" />
             <span class="more">查看更多</span>
         </div>
@@ -115,16 +116,7 @@
             </div>
             <p>{{ content }}</p>
         </div>
-        <!-- <div class="contexts">
-            <div class="users">
-                <img
-                    :src="avatar"
-                    alt=""
-                />
-                <span class="username">{{nickname}}/span>
-            </div>
-            <p>{{content}}</p>
-        </div> -->
+
         <van-tabs v-model="active" scrollspy sticky>
             <van-tab
                 v-for="item in detailList"
@@ -294,6 +286,17 @@ export default {
         this.$store.commit("changeFlag", true);
     },
     methods: {
+        learnMore() {
+            let skusn = this.$route.params.id;
+            let pid = this.goodsDetail.pid;
+            this.$router.history.push({
+                name: "contents",
+                params: {
+                    pid,
+                    skusn,
+                },
+            });
+        },
         changePage(id) {
             this.selectedIndex = id;
         },

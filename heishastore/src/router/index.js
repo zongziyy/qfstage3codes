@@ -57,6 +57,17 @@ const routes = [{
         component: () => import( /* webpackChunkName: "about" */ '../views/Detail.vue')
     },
     {
+        path: '/contents/:pid/:skusn',
+        name: 'contents',
+
+        component: () => import( /* webpackChunkName: "about" */ '../views/Contents.vue'),
+    },
+    {
+        path: '/search',
+        name: 'search',
+        component: () => import( /* webpackChunkName: "about" */ '../views/Search.vue'),
+    },
+    {
         path: '/404',
         name: 'notfound',
         component: NotFound

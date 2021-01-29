@@ -7,6 +7,7 @@
                     alt=""
                 />
             </h1>
+            <div class="secrchBtn" @click="toseach"></div>
         </div>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
             <van-swipe-item v-for="(item, index) in bannerImg" :key="index">
@@ -52,6 +53,7 @@ import goodsModel from "../model/shoppingMall";
 export default {
     data() {
         return {
+            holder: "黑鲨",
             bannerImg: [],
             goodsList: [],
         };
@@ -72,6 +74,10 @@ export default {
                     id: id,
                 },
             });
+        },
+
+        toseach() {
+            this.$router.history.push("/search");
         },
     },
 };
@@ -107,15 +113,35 @@ export default {
     background-color: #f5f5f9;
     .header {
         width: 100%;
-        height: px(150px);
-        padding: px(30px) 0;
         background-color: #000;
+        display: flex;
+        padding: px(30px) 0;
+        position: relative;
         .logo {
-            height: 100%;
+            height: px(90px);
+            // height: 100%;
+            box-sizing: content-box;
             text-align: center;
+            flex: 1 1;
             img {
                 height: 100%;
             }
+        }
+        .secrchBtn {
+            position: absolute;
+            height: px(90px);
+            width: px(90px);
+            border-radius: px(9000px);
+            // overflow: hidden;
+            top: 0;
+            right: px(40px);
+            bottom: 0;
+            margin: auto;
+            background: url("https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fpic.51yuansu.com%2Fpic3%2Fcover%2F02%2F25%2F26%2F59b09050c4528_610.jpg&refer=http%3A%2F%2Fpic.51yuansu.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1614494252&t=3b0db1710295c9ccb613a185328594c3")
+                no-repeat center center;
+            background-origin: border-box;
+            background-size: 104% 104%;
+            cursor: pointer;
         }
     }
     .goods {
