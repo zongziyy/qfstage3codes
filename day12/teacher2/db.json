@@ -1,0 +1,32 @@
+[
+    {
+        "goodsname": "商品二",
+        "goodsprice": 100,
+        "goodsnum": 10,
+        "addres": "荆州"
+    },
+    {
+        "goodsname": "商品三",
+        "goodsprice": 200,
+        "goodsnum": 20,
+        "addres": "武汉"
+    },
+    {
+        "goodsname": "商品三",
+        "goodsprice": 300,
+        "goodsnum": 30,
+        "addres": "荆州"
+    },
+    {
+        "goodsname": "商品四",
+        "goodsprice": 400,
+        "goodsnum": 40,
+        "addres": "杭州"
+    },
+    {
+        "goodsname": "商品五",
+        "goodsprice": 500,
+        "goodsnum": 50,
+        "addres": "武汉"
+    }
+]

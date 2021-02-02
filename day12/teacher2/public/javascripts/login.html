@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+    <div>
+        <form id="myform">
+            用户名<input name="username"/>
+            密码<input name="userpwd"/>
+            <button type="button" id="btn">登录</button>
+        </form>
+    </div>
+</body>
+<script>
+    $("#btn").click(()=>{
+            $.ajax({
+                type:"post",
+                url:"http://localhost:3000/users/login",
+                data:$("#myform").serializeArray()
+            }).then(res=>{
+                // console.log(res);
+                localStorage.setItem("token",res.token);
+                // window.location.href="list";
+               // window.location.href="http://localhost:3000/users/list";
+            })
+    })
+
+</script>
+</html>

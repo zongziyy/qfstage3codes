@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            list-style: none;
+        }
+        .table{
+            width: 300px;
+            overflow: hidden;
+            margin: 50px auto;
+        }
+        .item{
+            float: left;
+            width: 100px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            background-color: black;
+            color: burlywood;
+        }
+    </style>
+</head>
+<body>
+    <h1><%= title %></h1>
+    <div class="table">
+        <div class="tr">
+            <div class="item">编号</div>
+            <div class="item">用户名</div>
+            <div class="item">年龄</div>
+        </div>
+        <% list.forEach(item=>{ %>
+            <div class="tr">
+                <div class="item"><%= item.id %> </div>
+                <div class="item"><%= item.username %></div>
+                <div class="item"><%= item.userage %></div>
+            </div>
+        <% }) %>
+
+       
+    </div>
+</body>
+</html>
