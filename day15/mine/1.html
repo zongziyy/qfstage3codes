@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var list1 = [{
+        id: 1,
+        name: "mzl"
+    }, {
+        id: 2,
+        name: "zd"
+    }, {
+        id: 3,
+        name: "yangcaiyue"
+    }];
+    var list2 = [{
+        id: 1,
+        const: 12
+    }, {
+        id: 3,
+        const: 23
+    }, {
+        id: 2,
+        const: 32
+    }]
+
+    list = list1.map(item => {
+        // item.const = 2
+        // console.log(item)
+        // console.log(list2.filter(item1 => item.id == item1.id)[0].const)
+        item.const = list2.filter(item1 => item.id == item1.id)[0].const
+        return item
+    })
+    console.log(list);
+</script>
+
+</html>
