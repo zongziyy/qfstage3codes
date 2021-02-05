@@ -3,16 +3,72 @@ var router = express.Router();
 let jwt = require("jsonwebtoken");
 let leaveService = require("../service/leaveService");
 
-/* GET home page. */
-router.get("/student", (req, res, next) => { //学生的请假
+router.patch("/update", (req, res, next) => {
+    let { _id, type } = req.body;
+    //解析token
+    leaveService.update({ _id }, { type }).then((result) => {
+        if (result.nModified > 0) { //表示受影响的行数
+            res.json({
+                code: 1,
+                msg: "更新成功"
+            })
+
+        } else {
+            res.json({
+                code: 0,
+                msg: "更新失败"
+            })
+        }
+
+    })
+
+
+})
+
+//老师登录以后 访问的接口
+router.get("/teacher", (req, res, next) => {
+    //get请求
+    let { pageindex, shownum } = req.query; //这里不是body  
 
     let token = req.headers.token;
+    jwt.verify(token, "abc", async (err, info) => {
+        if (!err) { //没有错
+            if (info.usertype == 1) {
 
+                let count = await leaveService.count({});
+                //里面才是老师查询所有学生  每页显示五条数据
+                leaveService.queryAll({}, (pageindex - 1) * shownum, shownum * 1).then(list => {
+                    //加入一个接口 返回总条件
+                    res.json({
+                        code: 1,
+                        list,
+                        count
+                    })
+                })
+            } else {
+                res.json({
+                    code: 2,
+                    msg: "权限不够"
+                })
+            }
+        } else {
+            res.json({
+                code: 0,
+                msg: "token异常"
+            })
+        }
+    });
+})
+
+/* GET home page. */
+router.get("/student", (req, res, next) => { //学生的请假
+    let token = req.headers.token;
     jwt.verify(token, "abc", (err, info) => { //解析token
         if (!err) {
             //没有错
             if (info.usertype == 2) { //表示学生
                 let userid = info.userid; //学生的id
+                // console.log(userid);
                 leaveService.query({ userid }).then(list => { //查询结果
                     res.json({
                         code: 1,
@@ -32,15 +88,8 @@ router.get("/student", (req, res, next) => { //学生的请假
                 msg: "token异常",
                 path: "/"
             })
-
         }
-
-
-
     })
-
-
-
 })
 
 
@@ -62,11 +111,13 @@ router.post('/add', function(req, res, next) {
                 // pic:String,//照片的地址  可选
                 // type:Number,//1表示待审批  2:同意   3:拒绝
                 let { leaveReason, startDate, endDate, pic } = req.body;
+                // console.log(new  Date(startDate).toJSON());
                 let userid = info.userid; //info存在token中
                 let type = 1; //默认就是待审批
+                startDate = new Date(startDate).toJSON();
+                endDate = new Date(endDate).toJSON();
 
                 leaveService.add({ userid, leaveReason, startDate, endDate, pic, type }).then(list => {
-
                     if (list.length) {
                         res.json({
                             code: 1,
