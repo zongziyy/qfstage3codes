@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementsByClassName("a")[0].innerHTML="a盒子红色",console.log("main")})();

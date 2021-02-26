@@ -1,0 +1,9 @@
+$defaultColor:#67ff10;
+
+.a {
+    color: $defaultColor;
+    width: 600px;
+    height: 600px;
+    background: url(../img/seraphine.jpg);
+    background-size: contain;
+}

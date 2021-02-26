@@ -1,0 +1,15 @@
+.active{
+    color:red !important;
+}
+
+.menu{
+    display: flex;
+    align-items: center;
+}
+.item{
+    flex:1;
+    text-align: center;
+    background-color: black;
+    color: blanchedalmond;
+
+}
