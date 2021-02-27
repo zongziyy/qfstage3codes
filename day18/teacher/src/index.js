@@ -5,6 +5,3 @@ import  App  from  "./App.js";
 //render等价于vue中template  根节点只有一个
 
 ReactDom.render(<App></App>,document.getElementById('root'));
-
-
-
