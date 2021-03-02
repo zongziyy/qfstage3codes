@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    // 数组随机乱序排列
+    var codelist = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o']
+
+    function order(list) {
+        let oldList = [...list]
+        let newList = [];
+        for (i = 0; i < list.length; i++) {
+            let index = parseInt(Math.random() * oldList.length)
+            newList.push(oldList.splice(index, 1)[0])
+        }
+        return newList
+    }
+    console.log(order(codelist));
+</script>
+
+</html>

@@ -1,0 +1,50 @@
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+body,html{
+    width: 100%;
+    height: 100%;
+}
+#root{
+   height: 100%; 
+}
+.content{
+    height: 80%;
+}
+.footer{
+     height: 10%;
+     display: flex;
+     align-items: center;
+}
+.footer .item{
+    flex: 1;
+    text-align: center;
+}
+.footer div.active{
+    color: red;
+}
+.success{
+    color:green;
+}
+.error{
+    color: red;
+}
+.table{
+    width: 600px;
+    overflow: hidden;
+    margin: 50px auto;
+}
+.tr-item{
+    float: left;
+    width: 100px;
+    height: 40px;
+    background-color: black;
+    color:burlywood;
+    text-align: center;
+}
+.tr-item  input{
+    width: 50px;
+}

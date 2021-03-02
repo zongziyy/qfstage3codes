@@ -1,0 +1,46 @@
+html,
+body {
+    height: 100%;
+}
+
+#root {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .header {
+        height: 100px;
+        background-color: #919191;
+    }
+
+    .main {
+        flex: 1;
+        overflow-y: auto;
+
+        .success {
+            color: green;
+        }
+
+        .error {
+            color: red;
+        }
+    }
+
+    .footer {
+        height: 100px;
+        background-color: #919191;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+
+        .menus {
+            text-align: center;
+            user-select: none;
+            cursor: pointer;
+        }
+
+        .active {
+            color: red;
+        }
+    }
+}
