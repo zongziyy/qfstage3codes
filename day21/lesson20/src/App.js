@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
+import RouterView from  "./router";
 
-export default class List extends Component {
+
+
+export default class App extends Component {
     render() {
         return (
             <div>
-                list页面
+                <RouterView></RouterView>
             </div>
         )
     }

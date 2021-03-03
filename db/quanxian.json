@@ -1,0 +1,24 @@
+{
+  "usertable": [
+    {
+      "id": 1,
+      "username": "mzl",
+      "userpwd": "123456",
+      "usertype": 1
+    },
+    {
+      "username": "zhoudi",
+      "userpwd": "123",
+      "usertype": 2,
+      "id": 2
+    },
+    {
+      "username": "yangcaiyue",
+      "userpwd": "123",
+      "usertype": 2,
+      "id": 3
+    }
+  ],
+  "menutable": [],
+  "usermenutable": []
+}

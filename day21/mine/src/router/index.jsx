@@ -1,9 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom'
-import Home from '../view/Home'
-import About from '../view/About'
-import List from '../view/List'
-import NotFound from '../view/NotFound'
+import loadable from '../utils/loadable';
+// import Home from '../view/Home'
+// import About from '../view/About'
+// import List from '../view/List'
+// import NotFound from '../view/NotFound'
+
+const Home = loadable(() => import('../view/Home'))
+const Menu = loadable(() => import('../view/Menu'))
+const NotFound = loadable(() => import('../view/NotFound'))
 
 export default class index extends Component {
     constructor(props) {
@@ -17,14 +22,9 @@ export default class index extends Component {
                     exact: true
                 },
                 {
-                    id: 1,
-                    path: "/about",
-                    com: About
-                },
-                {
-                    id: 1,
-                    path: "/list",
-                    com: List
+                    id: 2,
+                    path: '/menu',
+                    com: Menu
                 }
             ]
         }
