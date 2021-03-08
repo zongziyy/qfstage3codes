@@ -1,0 +1,7 @@
+export default {
+    "INITUSER": "INITUSER",
+    'ADDUSER': 'ADDUSER',
+    'INITMENU': 'INITMENU',
+    'ADDMENU': 'ADDMENU',
+    'CHANGEMENUFLAG': 'CHANGEMENUFLAG'
+}

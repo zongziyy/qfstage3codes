@@ -1,0 +1,6 @@
+export default {
+    "NUMADD":"NUMADD",
+    "NUMREDUCER":"NUMREDUCER",
+    "USERLIST":"USERLIST",
+    "USERADD":"USERADD"
+}

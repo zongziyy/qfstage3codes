@@ -17,8 +17,51 @@
       "userpwd": "123",
       "usertype": 2,
       "id": 3
+    },
+    {
+      "username": "wangshuang",
+      "userpwd": "123",
+      "usertype": 2,
+      "id": 4
+    },
+    {
+      "username": "lilonglong",
+      "userpwd": "123",
+      "usertype": 2,
+      "id": 5
+    },
+    {
+      "username": "5",
+      "userpwd": "1",
+      "usertype": 2,
+      "id": 6
+    },
+    {
+      "username": "12123d",
+      "userpwd": "sadas",
+      "usertype": 2,
+      "id": 7
     }
   ],
-  "menutable": [],
+  "menutable": [
+    {
+      "menuName": "菜单一",
+      "path": "/menu/a1",
+      "component": "A1",
+      "id": 1
+    },
+    {
+      "menuName": "菜单二",
+      "path": "/menu/a2",
+      "component": "A2",
+      "id": 2
+    },
+    {
+      "menuName": "菜单三",
+      "path": "/menu/a3",
+      "component": "A3",
+      "id": 3
+    }
+  ],
   "usermenutable": []
 }

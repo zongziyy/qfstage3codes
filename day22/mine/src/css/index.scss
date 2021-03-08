@@ -1,0 +1,44 @@
+#root {
+    .main {
+        .menu {
+
+            .adduser,
+            .addmenu,
+            .setMenus {
+
+                .userList {
+                    margin: 60px auto;
+                    width: max-content;
+                    // border: 1px solid #000;
+
+                    .tr {
+                        text-align: center;
+                        padding: 3px;
+                        background-color: #dfdfdf;
+
+                        &:first-of-type {
+                            background-color: #727272;
+                            color: #dfdfdf;
+                            font-weight: bold;
+                        }
+
+                        // &:not(:last-of-type) {
+                        //     border-bottom: 1px solid #000;
+                        // }
+
+                        &:nth-of-type(2n) {
+                            background-color: #acacac;
+                        }
+
+                        .td {
+                            float: left;
+                            padding: 0px 10px;
+                            width: 100px;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+}
