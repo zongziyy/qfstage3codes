@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+</body>
+<script>
+    var list1 = [{
+        id: "ab",
+        children: [{
+            id: "cd",
+            children: [{
+                    id: "ef",
+                    children: [{
+                        id: "fb",
+                        children: [{
+                            id: "wd",
+                            children: [{
+                                id: "et",
+                                children: []
+                            }]
+                        }]
+                    }]
+                },
+                {
+                    id: "rb",
+                    children: [{
+                        id: "ct",
+                        children: [{
+                            id: "wf",
+                            children: []
+                        }]
+                    }]
+                }
+            ]
+        }]
+    }]
+
+
+    let list2 = [{
+        id: "aa",
+        children: [{
+            id: "bb",
+            children: [{
+                id: "cc",
+                children: [{
+                    id: "dd",
+                    children: []
+                }]
+            }]
+        }],
+    }]
+
+    function getPathByKey(value, key, arr) {
+        let temppath = []
+        try {
+            function getNodePath(node) {
+                temppath.push(node);
+                if (node[key] === value) {
+                    throw ('GOT IT!');
+                }
+                if (node.children && node.children.length > 0) {
+                    for (var i = 0; i < node.children.length; i++) {
+                        getNodePath(node.children[i]);
+                    }
+                    temppath.pop();
+                } else {
+                    temppath.pop();
+                }
+            }
+            for (let i = 0; i < arr.length; i++) {
+                getNodePath(arr[i]);
+            }
+        } catch (e) {
+            return temppath;
+        }
+    }
+    console.log(getPathByKey('wf', 'id', list2));
+</script>
+
+</html>
