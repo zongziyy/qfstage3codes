@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { HashRouter as Router, Route, Switch } from "react-router-dom"
-// import  userMenuModel from "../model/userMenuModel"
 import comInfo from "./com";
 
 export default (userinfo) => {

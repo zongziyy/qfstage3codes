@@ -1,0 +1,14 @@
+.table{
+    width: 400px;
+    overflow: hidden;
+    margin: 50px  auto;
+}
+.tr-item{
+    width: 100px;
+    height: 40px;
+    float: left;
+    background-color: black;
+    color: burlywood;
+    text-align: center;
+    line-height: 40px;
+}

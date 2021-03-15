@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>单例</title>
+</head>
+<body>
+    <button id="add">新增</button><button id="del">删除</button>
+
+</body>
+<script>
+    let  addBtn = document.getElementById("add");
+    let  delBtn = document.getElementById("del");
+
+    function  dialog(){
+        let  div=  document.createElement("div")
+
+        return  (html)=>{
+
+            div.innerHTML = html;
+            document.body.appendChild(div);
+        }
+
+    }
+
+    let  result = dialog();
+
+    addBtn.onclick = function(){
+        result("你要新增吗?")
+
+    }
+    delBtn.onclick = function(){
+        result("你要删除吗?")
+    }
+</script>
+</html>
